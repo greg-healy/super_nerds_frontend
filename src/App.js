@@ -9,7 +9,7 @@ function App() {
 	useEffect(() => {
 		axios.get('http://cs361-project-backend.herokuapp.com/time')
 			.then(res => {
-				this.setState({currentTime: res.time})
+				setCurrentTime(res.time)
 			})
 	  /*fetch('/time').then(res => res.json()).then(data => {
 		setCurrentTime(data.time);*/
