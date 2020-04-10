@@ -1,3 +1,12 @@
+## Instructions for CS361
+
+Clone the github repo to your local machine. Run `npm install` to install all of the necessary modules listed in the `package.json` file. Then run `npm start` to begin the web application (it should open a tab in your browser). 
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
