@@ -1,7 +1,9 @@
 import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 import flaskapi from '../api/flaskapi';
-import logo from './logo.svg';
-import './App.css';
+import SignUp from './SignUp';
+import SignIn from './SignIn';
+import NavBar from './NavBar';
 
 class App extends React.Component {
 	state = { currentTime: 0 }
@@ -11,29 +13,22 @@ class App extends React.Component {
 			console.log(res);
 			this.setState({currentTime: res.data.time});
 		})
-	  }
+	}
 
-  	render() {
+	render() {
 		return (
-		<div className="App">
-		<header className="App-header">
-			<img src={logo} className="App-logo" alt="logo" />
-			<p>
-			Edit <code>src/App.js</code> and save to reload.
-			</p>
-			<a
-			className="App-link"
-			href="https://reactjs.org"
-			target="_blank"
-			rel="noopener noreferrer"
-			>
-			Learn React
-			</a>
-			<p>The current time is {this.state.currentTime}.</p>
-		</header>
-		</div>
+			<div className="App">
+				<BrowserRouter>
+					<NavBar />
+					<Route path="/register" component={SignUp} />
+					<Route path="/login" component={SignIn} />
+				</BrowserRouter>
+			</div>
 		);
 	}
 }
 
 export default App;
+
+// Code for testing API by getting time
+//<p>The current time is {this.state.currentTime}.</p>
