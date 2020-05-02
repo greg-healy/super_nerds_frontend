@@ -4,24 +4,26 @@ import flaskapi from '../api/flaskapi';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import NavBar from './NavBar';
+import Homepage from './Homepage';
 
 class App extends React.Component {
-	state = { currentTime: 0 }
+	state = { currentTime: 0 };
 
 	componentDidMount() {
-		flaskapi.get('/time').then(res => {
+		flaskapi.get('/time').then((res) => {
 			console.log(res);
-			this.setState({currentTime: res.data.time});
-		})
+			this.setState({ currentTime: res.data.time });
+		});
 	}
 
 	render() {
 		return (
-			<div className="App">
+			<div className='App'>
 				<BrowserRouter>
 					<NavBar />
-					<Route path="/register" component={SignUp} />
-					<Route path="/login" component={SignIn} />
+					<Route path='/' exact component={Homepage} />
+					<Route path='/register' component={SignUp} />
+					<Route path='/login' component={SignIn} />
 				</BrowserRouter>
 			</div>
 		);
