@@ -9,6 +9,9 @@ export default (state = INITIAL_STATE, action) => {
 		case FETCH_TRANSACTIONS:
 			return { ...state, transactions: action.payload.transactions };
 
+		case CREATE_TRANSACTION:
+			return { ...state };
+
 		default:
 			return state;
 	}

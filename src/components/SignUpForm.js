@@ -1,7 +1,10 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 import asyncValidate from './asyncValidate';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 const validate = (values) => {
 	const errors = {};
@@ -27,47 +30,80 @@ const renderTextField = ({
 	...custom
 }) => (
 	<TextField
+		variant='outlined'
 		hintText={label}
 		floatingLabelText={label}
 		errorText={touched && error}
 		{...input}
 		{...custom}
+		label={label}
 	/>
 );
 
 const SignUpForm = (props) => {
-	const { handleSubmit, pristine, reset, submitting } = props;
+	const { handleSubmit, pristine, reset, submitting, classes } = props;
 	return (
-		<form onSubmit={handleSubmit}>
-			<div>
-				<Field
-					name='firstName'
-					component={renderTextField}
-					label='First Name'
-				/>
-			</div>
-			<div>
-				<Field name='lastName' component={renderTextField} label='Last Name' />
-			</div>
-			<div>
-				<Field name='email' component={renderTextField} label='Email' />
-			</div>
-			<div>
-				<Field
-					name='password'
-					type='password'
-					component={renderTextField}
-					label='Password'
-				/>
-			</div>
-			<div>
-				<button type='submit' disabled={pristine || submitting}>
-					Submit
-				</button>
-				<button type='button' disabled={pristine || submitting} onClick={reset}>
-					Clear Values
-				</button>
-			</div>
+		<form onSubmit={handleSubmit} className={classes.form}>
+			<Grid container spacing={2}>
+				<Grid item xs={12} sm={6}>
+					<Field
+						name='firstName'
+						component={renderTextField}
+						label='First Name'
+					/>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<Field
+						name='lastName'
+						component={renderTextField}
+						label='Last Name'
+					/>
+				</Grid>
+				<Grid item xs={12}>
+					<Field
+						name='email'
+						fullWidth
+						component={renderTextField}
+						label='Email'
+					/>
+				</Grid>
+				<Grid item xs={12}>
+					<Field
+						name='password'
+						type='password'
+						fullWidth
+						component={renderTextField}
+						label='Password'
+					/>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<Button
+						type='submit'
+						fullWidth
+						disable={pristine || submitting}
+						variant='contained'
+						color='primary'>
+						Sign Up
+					</Button>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<Button
+						type='button'
+						fullWidth
+						variant='contained'
+						disabled={pristine || submitting}
+						onClick={reset}>
+						Clear Values
+					</Button>
+				</Grid>
+				<Grid container justify='flex-end'>
+					<Grid item xs={12}>
+						<Link href='/login' variant='body2'>
+							Already have an account? Sign in
+						</Link>
+					</Grid>
+				</Grid>
+			</Grid>
 		</form>
 	);
 };
