@@ -1,6 +1,7 @@
-import { SIGN_IN, SIGN_OUT } from '../actions/types';
+import { SIGN_IN, SIGN_OUT, FAILED_ATTEMPT } from '../actions/types';
 
 const INITIAL_STATE = {
+	failedAttempt: false,
 	isSignedIn: null,
 	auth_token: '',
 };
@@ -15,7 +16,18 @@ export default (state = INITIAL_STATE, action) => {
 			};
 
 		case SIGN_OUT:
-			return { ...state, isSignedIn: false, auth_token: '' };
+			return {
+				...state,
+				failedAttempt: false,
+				isSignedIn: false,
+				auth_token: '',
+			};
+
+		case FAILED_ATTEMPT:
+			return {
+				...state,
+				failedAttempt: true,
+			};
 
 		default:
 			return state;

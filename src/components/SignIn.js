@@ -29,11 +29,20 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SignIn = ({ signIn }) => {
+const SignIn = ({ isSignedIn, failedAttempt, signIn }) => {
 	const classes = useStyles();
 
 	const onSubmit = (formValues) => {
 		signIn(formValues);
+	};
+
+	const renderStatusMessage = (isSignedIn, failedAttempt) => {
+		if (isSignedIn) {
+			return 'SUCCESS!';
+		} else if (failedAttempt) {
+			return 'INVALID CREDENTIALS';
+		}
+		return '';
 	};
 
 	return (
@@ -46,10 +55,18 @@ const SignIn = ({ signIn }) => {
 				<Typography component='h1' variant='h5'>
 					Sign in
 				</Typography>
+				{renderStatusMessage(isSignedIn, failedAttempt)}
 				<SignInForm classes={classes} onSubmit={onSubmit} />
 			</div>
 		</Container>
 	);
 };
 
-export default connect(null, { signIn })(SignIn);
+const mapStateTopProps = (state) => {
+	return {
+		isSignedIn: state.auth.isSignedIn,
+		failedAttempt: state.auth.failedAttempt,
+	};
+};
+
+export default connect(mapStateTopProps, { signIn })(SignIn);

@@ -8,9 +8,10 @@ import {
 	FETCH_TRANSACTIONS,
 	CREATE_TRANSACTION,
 	WITHDRAW,
+	FAILED_ATTEMPT,
 } from './types';
 
-export const createUser = (formValues) => async (dispatch, getState) => {
+export const createUser = (formValues) => async (dispatch) => {
 	console.log(formValues);
 	const response = await flaskapi.post('/register', formValues);
 	if (response === 'success') {
@@ -23,11 +24,15 @@ export const createUser = (formValues) => async (dispatch, getState) => {
 	}
 };
 
-export const signIn = (formValues) => async (dispatch, getState) => {
+export const signIn = (formValues) => async (dispatch) => {
 	//async request to flaskapi
 	const response = await flaskapi.post('/login', formValues);
 	console.log(response);
-	dispatch({ type: SIGN_IN, payload: response });
+	if (response.data == 'Invalid Username') {
+		dispatch({ type: FAILED_ATTEMPT });
+	} else {
+		dispatch({ type: SIGN_IN, payload: response });
+	}
 };
 
 export const signOut = () => {
