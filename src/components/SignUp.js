@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import SignUpForm from './SignUpForm';
+import { connect } from 'react-redux';
+import { createUser } from '../actions';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -27,8 +29,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function SignUp() {
+const SignUp = ({ createUser }) => {
 	const classes = useStyles();
+	const onSubmit = (formValues) => {
+		createUser(formValues);
+	};
 
 	return (
 		<Container component='main' maxWidth='xs'>
@@ -40,8 +45,10 @@ export default function SignUp() {
 				<Typography component='h1' variant='h5'>
 					Sign up
 				</Typography>
-				<SignUpForm classes={classes} />
+				<SignUpForm onSubmit={onSubmit} classes={classes} />
 			</div>
 		</Container>
 	);
-}
+};
+
+export default connect(null, { createUser })(SignUp);

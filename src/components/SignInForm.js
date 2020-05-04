@@ -31,9 +31,8 @@ const renderTextField = ({
 }) => (
 	<TextField
 		variant='outlined'
-		hintText={label}
-		floatingLabelText={label}
-		errorText={touched && error}
+		helperText={touched && error}
+		//error={touched && error}
 		{...input}
 		{...custom}
 		label={label}
@@ -51,7 +50,7 @@ const SignInForm = (props) => {
 						fullWidth
 						component={renderTextField}
 						label='Email'
-						autofocus
+						autoFocus
 					/>
 				</Grid>
 				<Grid item xs={12}>
@@ -67,7 +66,7 @@ const SignInForm = (props) => {
 					<Button
 						type='submit'
 						fullWidth
-						disable={pristine || submitting}
+						disabled={pristine || submitting}
 						variant='contained'
 						color='primary'>
 						Sign In
@@ -75,7 +74,7 @@ const SignInForm = (props) => {
 				</Grid>
 				<Grid container justify='flex-end'>
 					<Grid item xs={12}>
-						<Link href='/register' variant='body2'>
+						<Link to='/register' variant='body2'>
 							Don't have an account? Sign up!
 						</Link>
 					</Grid>

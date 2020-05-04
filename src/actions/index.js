@@ -10,11 +10,17 @@ import {
 	WITHDRAW,
 } from './types';
 
-export const createUser = (first_name, last_name, email, password) => {
-	return {
-		type: CREATE_USER,
-		payload: { first_name, last_name, email, password },
-	};
+export const createUser = (formValues) => async (dispatch, getState) => {
+	console.log(formValues);
+	const response = await flaskapi.post('/register', formValues);
+	if (response === 'success') {
+		dispatch({ type: CREATE_USER, payload: formValues });
+	} else if (response === 'failure') {
+		// Throw an error about something
+		dispatch({ type: 'DUMMY', payload: formValues });
+	} else {
+		dispatch({ type: 'DUMMY', payload: formValues });
+	}
 };
 
 export const signIn = (email, password) => {

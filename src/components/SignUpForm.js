@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 const validate = (values) => {
 	const errors = {};
-	const requiredFields = ['firstName', 'lastName', 'email', 'password'];
+	const requiredFields = ['first_name', 'last_name', 'email', 'password'];
 	requiredFields.forEach((field) => {
 		if (!values[field]) {
 			errors[field] = 'Required';
@@ -28,33 +28,41 @@ const renderTextField = ({
 	label,
 	meta: { touched, error },
 	...custom
-}) => (
-	<TextField
-		variant='outlined'
-		hintText={label}
-		floatingLabelText={label}
-		errorText={touched && error}
-		{...input}
-		{...custom}
-		label={label}
-	/>
-);
+}) => {
+	return (
+		<TextField
+			variant='outlined'
+			helperText={touched && error}
+			//error={errorBool}
+			{...input}
+			{...custom}
+			label={label}
+		/>
+	);
+};
 
 const SignUpForm = (props) => {
-	const { handleSubmit, pristine, reset, submitting, classes } = props;
+	const {
+		handleSubmit,
+		pristine,
+		reset,
+		submitting,
+		classes,
+		onSubmit,
+	} = props;
 	return (
-		<form onSubmit={handleSubmit} className={classes.form}>
+		<form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
 			<Grid container spacing={2}>
 				<Grid item xs={12} sm={6}>
 					<Field
-						name='firstName'
+						name='first_name'
 						component={renderTextField}
 						label='First Name'
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
 					<Field
-						name='lastName'
+						name='last_name'
 						component={renderTextField}
 						label='Last Name'
 					/>
@@ -80,7 +88,7 @@ const SignUpForm = (props) => {
 					<Button
 						type='submit'
 						fullWidth
-						disable={pristine || submitting}
+						disabled={pristine || submitting}
 						variant='contained'
 						color='primary'>
 						Sign Up
@@ -98,7 +106,7 @@ const SignUpForm = (props) => {
 				</Grid>
 				<Grid container justify='flex-end'>
 					<Grid item xs={12}>
-						<Link href='/login' variant='body2'>
+						<Link to='/login' variant='body2'>
 							Already have an account? Sign in
 						</Link>
 					</Grid>
