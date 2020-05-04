@@ -5,7 +5,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { connect } from 'react-redux';
 import SignInForm from './SignInForm';
+import { signIn } from '../actions';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -27,8 +29,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function SignIn() {
+const SignIn = ({ signIn }) => {
 	const classes = useStyles();
+
+	const onSubmit = (formValues) => {
+		signIn(formValues);
+	};
 
 	return (
 		<Container component='main' maxWidth='xs'>
@@ -40,8 +46,10 @@ export default function SignIn() {
 				<Typography component='h1' variant='h5'>
 					Sign in
 				</Typography>
-				<SignInForm classes={classes} />
+				<SignInForm classes={classes} onSubmit={onSubmit} />
 			</div>
 		</Container>
 	);
-}
+};
+
+export default connect(null, { signIn })(SignIn);

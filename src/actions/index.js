@@ -23,12 +23,11 @@ export const createUser = (formValues) => async (dispatch, getState) => {
 	}
 };
 
-export const signIn = (email, password) => {
+export const signIn = (formValues) => async (dispatch, getState) => {
 	//async request to flaskapi
-	return {
-		type: SIGN_IN,
-		payload: { email, password, auth_token: 'token from api' },
-	};
+	const response = await flaskapi.post('/login', formValues);
+	console.log(response);
+	dispatch({ type: SIGN_IN, payload: response });
 };
 
 export const signOut = () => {

@@ -40,9 +40,9 @@ const renderTextField = ({
 );
 
 const SignInForm = (props) => {
-	const { handleSubmit, pristine, submitting, classes } = props;
+	const { handleSubmit, pristine, submitting, classes, onSubmit } = props;
 	return (
-		<form onSubmit={handleSubmit} className={classes.form}>
+		<form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
 			<Grid container spacing={2}>
 				<Grid item xs={12}>
 					<Field

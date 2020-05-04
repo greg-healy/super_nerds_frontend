@@ -1,5 +1,6 @@
 import axios from 'axios';
 
 export default axios.create({
-	baseURL: 'https://cs361-project-backend.herokuapp.com'
+	baseURL: 'http://127.0.0.1:5000',
+	//baseURL: 'https://cs361-project-backend.herokuapp.com'
 });
