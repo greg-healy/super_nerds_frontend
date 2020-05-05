@@ -1,38 +1,43 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import flaskapi from '../api/flaskapi';
+import Container from '@material-ui/core/Container';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import NavBar from './NavBar';
 import Footer from './Footer';
 import Homepage from './Homepage';
+import { makeStyles } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
 
-class App extends React.Component {
-	state = { currentTime: 0 };
+export default function App() {
+	const useStyles = makeStyles((theme) => ({
+		root: {
+			display: 'flex',
+			flexDirection: 'column',
+			minHeight: '100vh',
+		},
+		main: {
+			//marginTop: theme.spacing(8),
+			//marginBottom: theme.spacing(2),
+			//display: 'flex',
+			//flexDirection: 'column',
+			minHeight: '85vh',
+		},
+	}));
+	const classes = useStyles();
 
-	componentDidMount() {
-		flaskapi.get('/time').then((res) => {
-			console.log(res);
-			this.setState({ currentTime: res.data.time });
-		});
-	}
-
-	render() {
-		return (
-			<div className='App'>
-				<BrowserRouter>
-					<NavBar />
+	return (
+		<div className={classes.root}>
+			<CssBaseline />
+			<BrowserRouter>
+				<NavBar />
+				<Container component='main' className={classes.main}>
 					<Route path='/' exact component={Homepage} />
 					<Route path='/register' component={SignUp} />
 					<Route path='/login' component={SignIn} />
-					<Footer />
-				</BrowserRouter>
-			</div>
-		);
-	}
+				</Container>
+				<Footer />
+			</BrowserRouter>
+		</div>
+	);
 }
-
-export default App;
-
-// Code for testing API by getting time
-//<p>The current time is {this.state.currentTime}.</p>
