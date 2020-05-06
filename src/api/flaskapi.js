@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-export default axios.create({
-	baseURL: 'http://127.0.0.1:5000',
-	//baseURL: 'https://cs361-project-backend.herokuapp.com'
-});
+let baseURL = 'http://127.0.0.1:5000';
+if (process.env.FLASK_API_URL) {
+	baseURL = process.env.FLASK_API_URL;
+}
+
+export default axios.create({ baseURL });
