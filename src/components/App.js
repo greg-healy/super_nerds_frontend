@@ -1,13 +1,16 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
+
 import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
+
+import history from '../history';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import NavBar from './NavBar';
 import Footer from './Footer';
 import Homepage from './Homepage';
-import { makeStyles } from '@material-ui/core/styles';
-import { CssBaseline } from '@material-ui/core';
 
 export default function App() {
 	const useStyles = makeStyles((theme) => ({
@@ -29,7 +32,7 @@ export default function App() {
 	return (
 		<div className={classes.root}>
 			<CssBaseline />
-			<BrowserRouter>
+			<Router history={history}>
 				<NavBar />
 				<Container component='main' className={classes.main}>
 					<Route path='/' exact component={Homepage} />
@@ -37,7 +40,7 @@ export default function App() {
 					<Route path='/login' component={SignIn} />
 				</Container>
 				<Footer />
-			</BrowserRouter>
+			</Router>
 		</div>
 	);
 }

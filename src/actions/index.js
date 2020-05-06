@@ -1,4 +1,5 @@
 import flaskapi from '../api/flaskapi';
+import history from '../history';
 import {
 	CREATE_USER,
 	SIGN_IN,
@@ -16,6 +17,7 @@ export const createUser = (formValues) => async (dispatch) => {
 	const response = await flaskapi.post('/register', formValues);
 	if (response === 'success') {
 		dispatch({ type: CREATE_USER, payload: formValues });
+		history.push('/');
 	} else if (response === 'failure') {
 		// Throw an error about something
 		dispatch({ type: 'DUMMY', payload: formValues });
