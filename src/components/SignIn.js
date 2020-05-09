@@ -62,11 +62,11 @@ const SignIn = ({ isSignedIn, failedAttempt, signIn }) => {
 	);
 };
 
-const mapStateTopProps = (state) => {
+const mapStateToProps = (state) => {
 	return {
 		isSignedIn: state.auth.isSignedIn,
 		failedAttempt: state.auth.failedAttempt,
 	};
 };
 
-export default connect(mapStateTopProps, { signIn })(SignIn);
+export default connect(mapStateToProps, { signIn })(SignIn);

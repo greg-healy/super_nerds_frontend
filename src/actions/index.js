@@ -13,15 +13,16 @@ import {
 } from './types';
 
 export const createUser = (formValues) => async (dispatch) => {
-	console.log(formValues);
 	const response = await flaskapi.post('/register', formValues);
-	if (response === 'success') {
-		dispatch({ type: CREATE_USER, payload: formValues });
-		history.push('/');
-	} else if (response === 'failure') {
+	console.log(response);
+	if (response.status === 201) {
+		dispatch({ type: CREATE_USER, payload: response.data });
+		history.push('/login');
+	} else if (response.status === 409) {
 		// Throw an error about something
-		dispatch({ type: 'DUMMY', payload: formValues });
+		dispatch({ type: FAILED_ATTEMPT, payload: response.data });
 	} else {
+		// TODO : Handle other errors
 		dispatch({ type: 'DUMMY', payload: formValues });
 	}
 };
@@ -30,13 +31,15 @@ export const signIn = (formValues) => async (dispatch) => {
 	//async request to flaskapi
 	const response = await flaskapi.post('/login', formValues);
 	console.log(response);
-	if (response.data == 'Invalid Username') {
-		dispatch({ type: FAILED_ATTEMPT });
+	if (response.status === 200) {
+		dispatch({ type: SIGN_IN, payload: response.data });
+		history.push('/dashboard');
 	} else {
-		dispatch({ type: SIGN_IN, payload: response });
+		dispatch({ type: FAILED_ATTEMPT, payload: response.data });
 	}
 };
 
 export const signOut = () => {
+	history.push('/');
 	return { type: SIGN_OUT };
 };
