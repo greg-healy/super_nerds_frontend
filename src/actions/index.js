@@ -10,6 +10,7 @@ import {
 	CREATE_TRANSACTION,
 	WITHDRAW,
 	FAILED_ATTEMPT,
+	FETCH_BALANCE,
 } from './types';
 
 export const createUser = (formValues) => async (dispatch) => {
@@ -28,11 +29,17 @@ export const createUser = (formValues) => async (dispatch) => {
 };
 
 export const signIn = (formValues) => async (dispatch) => {
-	//async request to flaskapi
+	console.log(formValues);
 	const response = await flaskapi.post('/login', formValues);
-	console.log(response);
+	// TODO : We are currently also sending email to reducers so that
+	// it can be stored in user Store. Ideally we should sent JWT with
+	// future requests and remove email from Store
 	if (response.status === 200) {
-		dispatch({ type: SIGN_IN, payload: response.data });
+		dispatch({
+			type: SIGN_IN,
+			payload: response.data,
+			email: formValues.email,
+		});
 		history.push('/dashboard');
 	} else {
 		dispatch({ type: FAILED_ATTEMPT, payload: response.data });
@@ -42,4 +49,13 @@ export const signIn = (formValues) => async (dispatch) => {
 export const signOut = () => {
 	history.push('/');
 	return { type: SIGN_OUT };
+};
+
+export const fetchBalance = (email) => async (dispatch, getState) => {
+	console.log(getState().auth);
+	const response = await flaskapi.get('/user/balance', email);
+	if (response.status === 200) {
+		dispatch({ type: FETCH_BALANCE, payload: response.data });
+	}
+	// TODO : Handle error fetching balance?
 };
