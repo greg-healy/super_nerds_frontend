@@ -22,10 +22,6 @@ export default function App() {
 			minHeight: '100vh',
 		},
 		main: {
-			//marginTop: theme.spacing(8),
-			//marginBottom: theme.spacing(2),
-			//display: 'flex',
-			//flexDirection: 'column',
 			minHeight: '85vh',
 		},
 	}));
