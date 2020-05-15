@@ -50,8 +50,7 @@ export const signOut = () => {
 	return { type: SIGN_OUT };
 };
 
-export const fetchBalance = (email) => async (dispatch, getState) => {
-	console.log(getState().auth);
+export const fetchBalance = () => async (dispatch, getState) => {
 	const response = await flaskapi.get('/user/balance', {
 		headers: {
 			Authorization: getState().auth.access_token,
