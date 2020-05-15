@@ -5,8 +5,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-//import IconButton from '@material-ui/core/IconButton';
-//import MenuIcon from '@material-ui/icons/Menu';
 import NavDrawer from './NavDrawer';
 import { connect } from 'react-redux';
 
@@ -20,10 +18,28 @@ const useStyles = makeStyles((theme) => ({
 	title: {
 		flexGrow: 1,
 	},
+	navButton: {
+		marginRight: theme.spacing(2),
+		borderColor: '#fff',
+		color: '#fff',
+	},
 }));
 
 const ButtonAppBar = ({ isSignedIn }) => {
 	const classes = useStyles();
+
+	const renderRegister = () => {
+		return (
+			<Link to='/register'>
+				<Button
+					className={classes.navButton}
+					variant='outlined'
+					color='inherit'>
+					Register
+				</Button>
+			</Link>
+		);
+	};
 
 	return (
 		<div className={classes.root}>
@@ -31,14 +47,21 @@ const ButtonAppBar = ({ isSignedIn }) => {
 				<Toolbar>
 					<NavDrawer />
 					<Typography variant='h6' className={classes.title}>
-						<Link to='/'>OUR APP NAME</Link>
+						<Link to='/'>
+							<Button className={classes.navButton} size='large'>
+								OUR APP NAME
+							</Button>
+						</Link>
 					</Typography>
 					<Link to={isSignedIn ? '/logout' : '/login'}>
-						<Button color='inherit'>{isSignedIn ? 'Log Out' : 'Log In'}</Button>
+						<Button
+							className={classes.navButton}
+							variant='outlined'
+							color='inherit'>
+							{isSignedIn ? 'Log Out' : 'Log In'}
+						</Button>
 					</Link>
-					<Link to='/register'>
-						<Button color='inherit'>Register</Button>
-					</Link>
+					{isSignedIn ? '' : renderRegister()}
 				</Toolbar>
 			</AppBar>
 		</div>
