@@ -29,7 +29,6 @@ export const createUser = (formValues) => async (dispatch) => {
 };
 
 export const signIn = (formValues) => async (dispatch) => {
-	console.log(formValues);
 	const response = await flaskapi.post('/login', formValues);
 	// TODO : We are currently also sending email to reducers so that
 	// it can be stored in user Store. Ideally we should sent JWT with
@@ -53,7 +52,11 @@ export const signOut = () => {
 
 export const fetchBalance = (email) => async (dispatch, getState) => {
 	console.log(getState().auth);
-	const response = await flaskapi.get('/user/balance', email);
+	const response = await flaskapi.get('/user/balance', {
+		headers: {
+			Authorization: getState().auth.access_token,
+		},
+	});
 	if (response.status === 200) {
 		dispatch({ type: FETCH_BALANCE, payload: response.data });
 	}

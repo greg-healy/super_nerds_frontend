@@ -5,6 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
+import Balance from './Balance';
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -35,7 +37,9 @@ const Dashboard = (props) => {
 					</Grid>
 				</Grid>
 				<Grid item xs={12} sm={4}>
-					<Paper className={classes.paper}>Balance</Paper>
+					<Paper className={classes.paper}>
+						<Balance></Balance>
+					</Paper>
 				</Grid>
 			</Grid>
 		</Container>
