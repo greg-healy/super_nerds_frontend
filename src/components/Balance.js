@@ -17,7 +17,7 @@ const Balance = ({ email, balance, fetchBalance }) => {
 				<Typography variant='h2' gutterBottom>
 					Balance
 				</Typography>
-				<Typography variant='body1'>${balance}</Typography>
+				<Typography variant='body1'>${balance.toFixed(2)}</Typography>
 			</Grid>
 		</Grid>
 	);
