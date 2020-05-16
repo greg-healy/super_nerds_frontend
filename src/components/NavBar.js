@@ -9,16 +9,15 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		flexGrow: 1,
-		justifyContent: 'flex-start',
-	},
+	root: {},
 	menuButton: {
 		marginRight: theme.spacing(2),
 	},
 	title: {
+		display: 'inline-block',
+	},
+	nav: {
 		flexGrow: 1,
-		justifyContent: 'flex-start',
 	},
 	authButton: {
 		marginRight: theme.spacing(2),
@@ -73,23 +72,27 @@ const ButtonAppBar = ({ isSignedIn }) => {
 			<AppBar position='static'>
 				<Container>
 					<Toolbar>
-						<Typography variant='h6' className={classes.title}>
-							<Link to='/'>
-								<Button className={classes.navButton} size='large'>
-									OUR APP LOGO
+						<div className={classes.nav}>
+							<Typography variant='h6' className={classes.title}>
+								<Link to={isSignedIn ? '/summary' : '/'}>
+									<Button className={classes.navButton} size='large'>
+										OUR APP LOGO
+									</Button>
+								</Link>
+							</Typography>
+							{isSignedIn ? renderNavButtons(navButtons) : ''}
+						</div>
+						<div>
+							<Link to={isSignedIn ? '/logout' : '/login'}>
+								<Button
+									className={classes.authButton}
+									variant='outlined'
+									color='inherit'>
+									{isSignedIn ? 'Log Out' : 'Log In'}
 								</Button>
 							</Link>
-						</Typography>
-						{isSignedIn ? renderNavButtons(navButtons) : ''}
-						<Link to={isSignedIn ? '/logout' : '/login'}>
-							<Button
-								className={classes.authButton}
-								variant='outlined'
-								color='inherit'>
-								{isSignedIn ? 'Log Out' : 'Log In'}
-							</Button>
-						</Link>
-						{isSignedIn ? '' : renderRegister()}
+							{isSignedIn ? '' : renderRegister()}
+						</div>
 					</Toolbar>
 				</Container>
 			</AppBar>
