@@ -7,6 +7,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import flaskapi from '../api/flaskapi';
+import { Typography } from '@material-ui/core';
 
 const SendUserSearch = ({ access_token, nextStep, setRecip }) => {
 	const [open, setOpen] = useState(false);
@@ -45,6 +46,9 @@ const SendUserSearch = ({ access_token, nextStep, setRecip }) => {
 
 	return (
 		<div>
+			<Typography variant='h1' gutterBottom>
+				Send money
+			</Typography>
 			<Autocomplete
 				id='userSearchBox'
 				style={{ width: 300 }}
@@ -64,7 +68,7 @@ const SendUserSearch = ({ access_token, nextStep, setRecip }) => {
 				renderInput={(params) => (
 					<TextField
 						{...params}
-						label='Find a Friend'
+						label='Email'
 						variant='outlined'
 						InputProps={{
 							...params.InputProps,
