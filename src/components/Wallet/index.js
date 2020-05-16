@@ -5,9 +5,9 @@ import WalletBank from './WalletBank';
 import WalletAmount from './WalletAmount';
 import WalletConfirm from './WalletConfirm';
 import WalletSuccess from './WalletSuccess';
-import { fetchBank } from '../../actions';
+import flaskapi from '../../api/flaskapi';
 
-const Wallet = (props) => {
+const Wallet = ({ access_token }) => {
 	const [step, setStep] = useState(1);
 	const [bank, setBank] = useState({});
 	const [amount, setAmount] = useState(0);
@@ -19,6 +19,17 @@ const Wallet = (props) => {
 	const prevStep = () => {
 		setStep(step - 1);
 	};
+
+	useEffect(() => {
+		(async () => {
+			const response = await flaskapi.get('/bank', {
+				headers: {
+					Authorization: access_token,
+				},
+			});
+			setBank({ name: response.data.bank_name, number: response.data.bank_no });
+		})();
+	});
 
 	const formValues = { bank, amount };
 
@@ -58,9 +69,8 @@ const Wallet = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
-		bank_no: state.user.bank_no,
-		bank_name: state.user.bank_name,
+		access_token: state.auth.access_token,
 	};
 };
 
-export default connect(mapStateToProps, { fetchBank })(Wallet);
+export default connect(mapStateToProps, null)(Wallet);
