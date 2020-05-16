@@ -13,6 +13,7 @@ import NavBar from './NavBar';
 import Footer from './Footer';
 import Homepage from './Homepage';
 import Dashboard from './Dashboard';
+import SendForm from './SendForm';
 
 export default function App() {
 	const useStyles = makeStyles((theme) => ({
@@ -38,6 +39,7 @@ export default function App() {
 					<Route path='/login' component={SignIn} />
 					<Route path='/logout' component={SignOut} />
 					<Route path='/dashboard' component={Dashboard} />
+					<Route path='/send' component={SendForm} />
 				</Container>
 				<Footer />
 			</Router>

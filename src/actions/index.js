@@ -50,7 +50,7 @@ export const signOut = () => {
 	return { type: SIGN_OUT };
 };
 
-export const fetchBalance = (email) => async (dispatch, getState) => {
+export const fetchBalance = () => async (dispatch, getState) => {
 	console.log(getState().auth);
 	const response = await flaskapi.get('/user/balance', {
 		headers: {
@@ -61,4 +61,18 @@ export const fetchBalance = (email) => async (dispatch, getState) => {
 		dispatch({ type: FETCH_BALANCE, payload: response.data });
 	}
 	// TODO : Handle error fetching balance?
+};
+
+export const fetchUsers = (formValues) => async (dispatch, getState) => {
+	const response = await flaskapi.get('/user/fetch', {
+		params: {
+			query: formValues.searchText,
+		},
+		headers: {
+			Authorization: getState().auth.access_token,
+		},
+	});
+	if (response.status === 200) {
+		dispatch({ type: FETCH_USERS, payload: response.data });
+	}
 };
