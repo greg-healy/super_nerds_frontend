@@ -14,6 +14,7 @@ import Footer from './Footer';
 import Homepage from './Homepage';
 import Dashboard from './Dashboard';
 import SendForm from './SendForm';
+import Wallet from './Wallet';
 
 export default function App() {
 	const useStyles = makeStyles((theme) => ({
@@ -40,6 +41,7 @@ export default function App() {
 					<Route path='/logout' component={SignOut} />
 					<Route path='/dashboard' component={Dashboard} />
 					<Route path='/send' component={SendForm} />
+					<Route path='/wallet' component={Wallet} />
 				</Container>
 				<Footer />
 			</Router>

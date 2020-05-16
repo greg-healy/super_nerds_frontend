@@ -1,4 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+
+import WalletBank from './WalletBank';
+import WalletAmount from './WalletAmount';
+import WalletConfirm from './WalletConfirm';
+import WalletSuccess from './WalletSuccess';
+import { fetchBank } from '../../actions';
 
 const Wallet = (props) => {
 	const [step, setStep] = useState(1);
@@ -13,21 +20,21 @@ const Wallet = (props) => {
 		setStep(step - 1);
 	};
 
-	const formValues = { recip, amount };
+	const formValues = { bank, amount };
 
 	switch (step) {
 		case 1:
 			return (
-				<SendUserSearch
+				<WalletBank
 					nextStep={nextStep}
-					setRecip={setRecip}
+					setRecip={setBank}
 					formValues={formValues}
 				/>
 			);
 
 		case 2:
 			return (
-				<SendAmount
+				<WalletAmount
 					nextStep={nextStep}
 					prevStep={prevStep}
 					setAmount={setAmount}
@@ -37,7 +44,7 @@ const Wallet = (props) => {
 
 		case 3:
 			return (
-				<SendConfirm
+				<WalletConfirm
 					nextStep={nextStep}
 					prevStep={prevStep}
 					formValues={formValues}
@@ -45,8 +52,15 @@ const Wallet = (props) => {
 			);
 
 		case 4:
-			return <SendSuccess formValues={formValues} />;
+			return <WalletSuccess formValues={formValues} />;
 	}
 };
 
-export default SendForm;
+const mapStateToProps = (state) => {
+	return {
+		bank_no: state.user.bank_no,
+		bank_name: state.user.bank_name,
+	};
+};
+
+export default connect(mapStateToProps, { fetchBank })(Wallet);

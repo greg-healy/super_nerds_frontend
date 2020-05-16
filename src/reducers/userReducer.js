@@ -1,4 +1,4 @@
-import { FETCH_BALANCE, SIGN_IN } from '../actions/types';
+import { FETCH_BALANCE, SIGN_IN, FETCH_BANK } from '../actions/types';
 
 const INITIAL_STATE = {
 	first_name: '',
@@ -16,6 +16,13 @@ export default (state = INITIAL_STATE, action) => {
 		// backend is using JWT to decode access tokens
 		case SIGN_IN:
 			return { ...state, email: action.email };
+
+		case FETCH_BANK:
+			return {
+				...state,
+				bank_no: action.payload.bank_no,
+				bank_name: action.payload.bank_name,
+			};
 
 		default:
 			return { ...state };

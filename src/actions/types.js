@@ -3,6 +3,7 @@ export const FAILED_ATTEMPT = 'FAILED_ATTEMPT';
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
 export const FETCH_BALANCE = 'FETCH_BALANCE';
+export const FETCH_BANK = 'FETCH_BANK';
 export const FETCH_USER = 'FETCH_USER';
 export const FETCH_USERS = 'FETCH_USERS';
 export const FETCH_TRANSACTIONS = 'FETCH_TRANSACTIONS';

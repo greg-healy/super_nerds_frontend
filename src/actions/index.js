@@ -4,13 +4,9 @@ import {
 	CREATE_USER,
 	SIGN_IN,
 	SIGN_OUT,
-	FETCH_USER,
-	FETCH_USERS,
-	FETCH_TRANSACTIONS,
-	CREATE_TRANSACTION,
-	WITHDRAW,
 	FAILED_ATTEMPT,
 	FETCH_BALANCE,
+	FETCH_BANK,
 } from './types';
 
 export const createUser = (formValues) => async (dispatch) => {
@@ -51,7 +47,6 @@ export const signOut = () => {
 };
 
 export const fetchBalance = () => async (dispatch, getState) => {
-	console.log(getState().auth);
 	const response = await flaskapi.get('/user/balance', {
 		headers: {
 			Authorization: getState().auth.access_token,
@@ -61,4 +56,15 @@ export const fetchBalance = () => async (dispatch, getState) => {
 		dispatch({ type: FETCH_BALANCE, payload: response.data });
 	}
 	// TODO : Handle error fetching balance?
+};
+
+export const fetchBank = () => async (dispatch, getState) => {
+	const response = await flaskapi.get('/bank', {
+		headers: {
+			Authorization: getState().auth.access_token,
+		},
+	});
+	if (response.status === 200) {
+		dispatch({ type: FETCH_BANK, payload: response.data });
+	}
 };
