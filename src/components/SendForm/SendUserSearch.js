@@ -5,9 +5,9 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 
-import flaskapi from '../api/flaskapi';
-import { Typography } from '@material-ui/core';
+import flaskapi from '../../api/flaskapi';
 
 const SendUserSearch = ({ access_token, nextStep, setRecip }) => {
 	const [open, setOpen] = useState(false);
