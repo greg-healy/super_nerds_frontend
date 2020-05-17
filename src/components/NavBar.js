@@ -55,7 +55,7 @@ const ButtonAppBar = ({ isSignedIn }) => {
 
 	const renderNavButton = (path, displayText) => {
 		return (
-			<Link to={path}>
+			<Link to={path} key={displayText}>
 				<Button className={classes.navButton}>{displayText}</Button>
 			</Link>
 		);

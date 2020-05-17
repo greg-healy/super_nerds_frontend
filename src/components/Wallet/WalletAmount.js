@@ -8,6 +8,9 @@ const WalletAmount = ({ prevStep, nextStep, setAmount, formValues }) => {
 	const { name, number } = formValues.bank;
 	const { amount } = formValues;
 
+	// TODO : Deposit function that checks if amount user wants to deposit is
+	// more than they currently have in their balance
+
 	return (
 		<div>
 			<Typography variant='h2' gutterBottom>
@@ -18,7 +21,7 @@ const WalletAmount = ({ prevStep, nextStep, setAmount, formValues }) => {
 			</Typography>
 			<CurrencyTextField
 				autoFocus
-				decimalPlaces='2'
+				decimalPlaces={2}
 				label='Amount'
 				variant='outlined'
 				value={amount}

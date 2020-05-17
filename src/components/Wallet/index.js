@@ -31,6 +31,11 @@ const Wallet = ({ access_token }) => {
 		})();
 	});
 
+	// TODO : If the user doesn't have a bank, set the step to -1
+	// At step -1, let them create a bank
+	// At step 0, let them decide if the want to deposit/withdraw
+	// Depending on their decision, set the type (need to pass in from TabPanel)
+
 	const formValues = { bank, amount };
 
 	switch (step) {
@@ -59,6 +64,7 @@ const Wallet = ({ access_token }) => {
 					nextStep={nextStep}
 					prevStep={prevStep}
 					formValues={formValues}
+					access_token={access_token}
 				/>
 			);
 
