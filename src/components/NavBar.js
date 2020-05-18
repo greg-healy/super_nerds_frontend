@@ -49,7 +49,7 @@ const ButtonAppBar = ({ isSignedIn }) => {
 	const navButtons = [
 		{ path: '/summary', displayText: 'Summary' },
 		{ path: '/activity', displayText: 'Activity' },
-		{ path: '/send', displayText: 'Send' },
+		{ path: '/send-request', displayText: 'Send & Request' },
 		{ path: '/wallet', displayText: 'Wallet' },
 	];
 

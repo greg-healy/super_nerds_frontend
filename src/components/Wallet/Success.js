@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 
 import history from '../../history';
 
-const WalletSuccess = () => {
+const Success = () => {
 	setTimeout(() => {
 		history.push('/summary');
 	}, 5000);
@@ -19,4 +19,4 @@ const WalletSuccess = () => {
 	);
 };
 
-export default WalletSuccess;
+export default Success;

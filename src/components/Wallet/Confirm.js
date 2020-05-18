@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import flaskapi from '../../api/flaskapi';
 
-const WalletConfirm = (props) => {
+const Confirm = (props) => {
 	const { access_token, nextStep, prevStep, walletState } = props;
 	const { amount, mode } = walletState;
 	const { name, number } = walletState.bank;
@@ -76,4 +76,4 @@ const WalletConfirm = (props) => {
 	);
 };
 
-export default WalletConfirm;
+export default Confirm;

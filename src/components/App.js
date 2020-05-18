@@ -13,7 +13,7 @@ import NavBar from './NavBar';
 import Footer from './Footer';
 import Homepage from './Homepage';
 import Summary from './Summary';
-import SendForm from './SendForm';
+import SendRequest from './SendRequest';
 import Wallet from './Wallet';
 
 export default function App() {
@@ -45,13 +45,17 @@ export default function App() {
 						<NavBar />
 					</Grid>
 					<Grid item xs={10} sm={8} className={classes.main}>
+						<br />
+						<br />
 						<Route path='/' exact component={Homepage} />
 						<Route path='/register' component={SignUp} />
 						<Route path='/login' component={SignIn} />
 						<Route path='/logout' component={SignOut} />
 						<Route path='/summary' component={Summary} />
-						<Route path='/send' component={SendForm} />
+						<Route path='/send-request' component={SendRequest} />
 						<Route path='/wallet' component={Wallet} />
+						<br />
+						<br />
 					</Grid>
 					<Grid item xs={12} className={classes.gridrow}>
 						<Footer />

@@ -25,7 +25,7 @@ const validate = (values) => {
 	return errors;
 };
 
-const WalletAdd = (props) => {
+const AddBank = (props) => {
 	const {
 		handleSubmit,
 		pristine,
@@ -33,9 +33,7 @@ const WalletAdd = (props) => {
 		classes,
 		nextStep,
 		addBank,
-		walletState,
 	} = props;
-	const { bank } = walletState;
 
 	const onSubmit = (formValues) => {
 		if (addBank(formValues)) nextStep();
@@ -82,4 +80,4 @@ const WalletAdd = (props) => {
 export default reduxForm({
 	form: 'AddBankForm', // a unique identifier for this form
 	validate,
-})(WalletAdd);
+})(AddBank);

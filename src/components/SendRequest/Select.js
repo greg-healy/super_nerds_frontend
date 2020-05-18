@@ -4,8 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-const WalletSelect = (props) => {
-	const { setModeDeposit, setModeWithdraw, prevStep } = props;
+const SendRequestSelect = (props) => {
+	const { setModeSend, setModeRequest } = props;
 	return (
 		<Grid
 			container
@@ -21,8 +21,8 @@ const WalletSelect = (props) => {
 					fullWidth
 					variant='contained'
 					color='primary'
-					onClick={() => setModeWithdraw()}>
-					Withdraw
+					onClick={() => setModeSend()}>
+					Send Money
 				</Button>
 			</Grid>
 			<Grid item xs={12}>
@@ -30,22 +30,12 @@ const WalletSelect = (props) => {
 					fullWidth
 					variant='contained'
 					color='primary'
-					onClick={() => setModeDeposit()}>
-					Deposit
-				</Button>
-			</Grid>
-			<Grid item xs={12}>
-				<Button
-					disabled
-					fullWidth
-					variant='contained'
-					color='primary'
-					onClick={() => prevStep()}>
-					Add a Bank
+					onClick={() => setModeRequest()}>
+					Request
 				</Button>
 			</Grid>
 		</Grid>
 	);
 };
 
-export default WalletSelect;
+export default SendRequestSelect;

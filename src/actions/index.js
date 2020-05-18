@@ -59,9 +59,10 @@ export const fetchBalance = () => async (dispatch, getState) => {
 			dispatch({ type: FETCH_BALANCE, payload: response.data });
 		}
 	} catch {
-		console.log('Could not reach the server to fetch the balance.');
+		// TODO : Delete the dispatch below; purely for testing
+		//console.log('Could not reach the server to fetch the balance.');
+		dispatch({ type: FETCH_BALANCE, payload: { balance: 1000 } });
 	}
-	// TODO : Handle error fetching balance?
 };
 
 /****************************************

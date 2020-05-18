@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
-const WalletBank = (props) => {
+const SelectBank = (props) => {
 	// Could use the below if we had multiple banks
 	//const {setBank} = props;
 	const { prevStep, nextStep, setBank, walletState, banks, classes } = props;
@@ -72,4 +72,4 @@ const WalletBank = (props) => {
 	);
 };
 
-export default WalletBank;
+export default SelectBank;

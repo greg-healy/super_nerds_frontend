@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 
-const WalletAmount = (props) => {
+const Amount = (props) => {
 	const {
 		prevStep,
 		nextStep,
@@ -13,7 +13,7 @@ const WalletAmount = (props) => {
 		balance,
 		classes,
 	} = props;
-	const { name, number } = walletState.bank;
+	//const { name, number } = walletState.bank;
 	const { amount, mode } = walletState;
 
 	const isValid =
@@ -47,7 +47,7 @@ const WalletAmount = (props) => {
 					value={amount}
 					currencySymbol='$'
 					outputFormat='number'
-					minimumValue={0}
+					minimumValue='0'
 					onChange={(event, value) => setAmount(value)}
 				/>
 			</Grid>
@@ -78,4 +78,4 @@ const WalletAmount = (props) => {
 	);
 };
 
-export default WalletAmount;
+export default Amount;

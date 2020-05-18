@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import WalletAdd from './WalletAdd';
-import WalletSelect from './WalletSelect';
-import WalletBank from './WalletBank';
-import WalletAmount from './WalletAmount';
-import WalletConfirm from './WalletConfirm';
-import WalletSuccess from './WalletSuccess';
+import AddBank from './AddBank';
+import SelectAction from './SelectAction';
+import SelectBank from './SelectBank';
+import Amount from './Amount';
+import Confirm from './Confirm';
+import Success from './Success';
 import { fetchBanks, addBank } from '../../actions';
 
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +76,7 @@ const Wallet = (props) => {
 		switch (step) {
 			case -1:
 				return (
-					<WalletAdd
+					<AddBank
 						classes={classes}
 						nextStep={nextStep}
 						addBank={addBank}
@@ -86,7 +86,7 @@ const Wallet = (props) => {
 
 			case 0:
 				return (
-					<WalletSelect
+					<SelectAction
 						setModeDeposit={setModeDeposit}
 						setModeWithdraw={setModeWithdraw}
 						prevStep={prevStep}
@@ -95,7 +95,7 @@ const Wallet = (props) => {
 
 			case 1:
 				return (
-					<WalletBank
+					<SelectBank
 						prevStep={prevStep}
 						nextStep={nextStep}
 						setBank={setBank}
@@ -107,7 +107,7 @@ const Wallet = (props) => {
 
 			case 2:
 				return (
-					<WalletAmount
+					<Amount
 						nextStep={nextStep}
 						prevStep={prevStep}
 						setAmount={setAmount}
@@ -119,7 +119,7 @@ const Wallet = (props) => {
 
 			case 3:
 				return (
-					<WalletConfirm
+					<Confirm
 						nextStep={nextStep}
 						prevStep={prevStep}
 						walletState={walletState}
@@ -128,7 +128,7 @@ const Wallet = (props) => {
 				);
 
 			case 4:
-				return <WalletSuccess walletState={walletState} />;
+				return <Success walletState={walletState} />;
 
 			default:
 		}

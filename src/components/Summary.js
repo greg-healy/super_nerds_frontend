@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 
 import Balance from './Balance';
 import Wallet from './Wallet';
-import SendForm from './SendForm';
+import SendRequest from './SendRequest';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
 	paper: {
 		padding: theme.spacing(2),
 		textAlign: 'left',
+		height: '100%',
 	},
 }));
 
@@ -21,10 +22,10 @@ const Summary = (props) => {
 	const classes = useStyles();
 
 	return (
-		<Grid container spacing={2}>
+		<Grid container alignItems='stretch' spacing={2}>
 			<Grid item xs={12} sm={6}>
 				<Paper className={classes.paper}>
-					<SendForm></SendForm>
+					<SendRequest></SendRequest>
 				</Paper>
 			</Grid>
 			<Grid item xs={12} sm={6}>
