@@ -128,7 +128,7 @@ const Wallet = (props) => {
 				);
 
 			case 4:
-				return <Success walletState={walletState} />;
+				return <Success setStep={setStep} walletState={walletState} />;
 
 			default:
 		}

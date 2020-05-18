@@ -4,9 +4,12 @@ import Typography from '@material-ui/core/Typography';
 
 import history from '../../history';
 
-const Success = () => {
+const Success = (props) => {
+	const { setStep } = props;
+
 	setTimeout(() => {
 		history.push('/summary');
+		setStep(0);
 	}, 5000);
 
 	return (

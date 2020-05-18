@@ -101,7 +101,7 @@ const SendForm = (props) => {
 			);
 
 		case 4:
-			return <SendSuccess formValues={formValues} />;
+			return <SendSuccess setStep={setStep} formValues={formValues} />;
 
 		default:
 	}
