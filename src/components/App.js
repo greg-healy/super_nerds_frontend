@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
 
-import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 
@@ -12,39 +12,51 @@ import SignOut from './SignOut';
 import NavBar from './NavBar';
 import Footer from './Footer';
 import Homepage from './Homepage';
-import Dashboard from './Dashboard';
+import Summary from './Summary';
 import SendForm from './SendForm';
 import Wallet from './Wallet';
 
 export default function App() {
 	const useStyles = makeStyles((theme) => ({
-		root: {
-			display: 'flex',
-			flexDirection: 'column',
-			minHeight: '100vh',
+		grow: {
+			flexGrow: '1',
 		},
-		main: {
-			minHeight: '85vh',
+		gridrow: {
+			width: '100vw',
 		},
 	}));
 	const classes = useStyles();
 
+	// <Container component='main' className={classes.main}></Container>
+	//className={classes.root}
 	return (
-		<div className={classes.root}>
+		<>
 			<CssBaseline />
 			<Router history={history}>
-				<NavBar />
-				<Container component='main' className={classes.main}>
-					<Route path='/' exact component={Homepage} />
-					<Route path='/register' component={SignUp} />
-					<Route path='/login' component={SignIn} />
-					<Route path='/logout' component={SignOut} />
-					<Route path='/dashboard' component={Dashboard} />
-					<Route path='/send' component={SendForm} />
-					<Route path='/wallet' component={Wallet} />
-				</Container>
-				<Footer />
+				<Grid
+					container
+					direction='column'
+					spacing={0}
+					alignItems='center'
+					justify='center'
+					style={{ minHeight: '100vh' }}>
+					<Grid item xs={12} className={classes.gridrow}>
+						<NavBar />
+					</Grid>
+					<Grid item xs={10} md={8} className={classes.grow}>
+						<Route path='/' exact component={Homepage} />
+						<Route path='/register' component={SignUp} />
+						<Route path='/login' component={SignIn} />
+						<Route path='/logout' component={SignOut} />
+						<Route path='/summary' component={Summary} />
+						<Route path='/send' component={SendForm} />
+						<Route path='/wallet' component={Wallet} />
+					</Grid>
+					<Grid item xs={12} className={classes.gridrow}>
+						<Footer />
+					</Grid>
+				</Grid>
 			</Router>
-		</div>
+		</>
 	);
 }

@@ -6,21 +6,23 @@ import {
 	SIGN_OUT,
 	FAILED_ATTEMPT,
 	FETCH_BALANCE,
-	FETCH_BANK,
+	FETCH_BANKS,
+	ADD_BANK,
 } from './types';
 
 export const createUser = (formValues) => async (dispatch) => {
-	const response = await flaskapi.post('/register', formValues);
-	console.log(response);
-	if (response.status === 201) {
-		dispatch({ type: CREATE_USER, payload: response.data });
-		history.push('/login');
-	} else if (response.status === 409) {
-		// Throw an error about something
-		dispatch({ type: FAILED_ATTEMPT, payload: response.data });
-	} else {
-		// TODO : Handle other errors
-		dispatch({ type: 'DUMMY', payload: formValues });
+	try {
+		const response = await flaskapi.post('/register', formValues);
+		console.log(response);
+		if (response.status === 201) {
+			dispatch({ type: CREATE_USER, payload: response.data });
+			history.push('/login');
+		} else if (response.status === 409) {
+			// Throw an error about something
+			dispatch({ type: FAILED_ATTEMPT, payload: response.data });
+		}
+	} catch {
+		console.log('Could not reach the server to create a user.');
 	}
 };
 
@@ -35,7 +37,7 @@ export const signIn = (formValues) => async (dispatch) => {
 			payload: response.data,
 			email: formValues.email,
 		});
-		history.push('/dashboard');
+		history.push('/summary');
 	} else {
 		dispatch({ type: FAILED_ATTEMPT, payload: response.data });
 	}
@@ -47,24 +49,89 @@ export const signOut = () => {
 };
 
 export const fetchBalance = () => async (dispatch, getState) => {
-	const response = await flaskapi.get('/user/balance', {
-		headers: {
-			Authorization: getState().auth.access_token,
-		},
-	});
-	if (response.status === 200) {
-		dispatch({ type: FETCH_BALANCE, payload: response.data });
+	try {
+		const response = await flaskapi.get('/user/balance', {
+			headers: {
+				Authorization: getState().auth.access_token,
+			},
+		});
+		if (response.status === 200) {
+			dispatch({ type: FETCH_BALANCE, payload: response.data });
+		}
+	} catch {
+		console.log('Could not reach the server to fetch the balance.');
 	}
 	// TODO : Handle error fetching balance?
 };
 
-export const fetchBank = () => async (dispatch, getState) => {
-	const response = await flaskapi.get('/bank', {
-		headers: {
-			Authorization: getState().auth.access_token,
-		},
-	});
-	if (response.status === 200) {
-		dispatch({ type: FETCH_BANK, payload: response.data });
+/****************************************
+ * Action Creators for Banking/Wallet
+ * fetchBanks
+ * addBank
+ * selectBank
+ * setAmount
+ * withdraw
+ * deposit
+ ****************************************/
+
+export const fetchBanks = () => async (dispatch, getState) => {
+	try {
+		const response = await flaskapi.get('/bank', {
+			headers: {
+				Authorization: getState().auth.access_token,
+			},
+		});
+		if (response.status === 200) {
+			dispatch({ type: FETCH_BANKS, payload: response.data });
+			return response.data;
+		} else {
+			console.log('Did not receive a good response from /bank.');
+		}
+	} catch {
+		//console.log('Could not communicate with the server.');
+		dispatch({ type: FETCH_BANKS, payload: { bank_name: '', bank_no: '' } });
+	}
+};
+
+export const addBank = (formValues) => async (dispatch, getState) => {
+	// Request the bank be added to the server's database
+	try {
+		const response = await flaskapi({
+			method: 'post',
+			url: '/bank/add',
+			headers: {
+				Authorization: getState().auth.access_token,
+			},
+			data: {
+				bank_name: formValues.name,
+				bank_no: formValues.number,
+			},
+		});
+		// Add the bank to our store->user->bank
+		if (response.status === 200) {
+			dispatch({
+				type: ADD_BANK,
+				payload: {
+					name: formValues.name,
+					number: formValues.number,
+				},
+			});
+			return 1;
+		} else {
+			console.log(
+				'The server received our request to add a bank, but could not process it.'
+			);
+		}
+	} catch {
+		console.log('Could not connect to the server to add the bank.');
+		// REMOVE : PURELY FOR TESTING.
+		dispatch({
+			type: ADD_BANK,
+			payload: {
+				name: formValues.name,
+				number: formValues.number,
+			},
+		});
+		return 1;
 	}
 };

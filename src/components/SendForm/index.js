@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import SendUserSearch from './SendUserSearch';
 import SendAmount from './SendAmount';
@@ -51,6 +51,8 @@ const SendForm = (props) => {
 
 		case 4:
 			return <SendSuccess formValues={formValues} />;
+
+		default:
 	}
 };
 

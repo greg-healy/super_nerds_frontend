@@ -1,10 +1,20 @@
 import React from 'react';
 
+import Typography from '@material-ui/core/Typography';
+
+import history from '../../history';
+
 const WalletSuccess = () => {
+	setTimeout(() => {
+		history.push('/summary');
+	}, 5000);
+
 	return (
 		<div>
-			<h1>Success page!</h1>
-			<h2>Return to dashboard button</h2>
+			<Typography variant='h1'>Success!</Typography>
+			<Typography variant='body1'>
+				You will now be returned to the summary page!
+			</Typography>
 		</div>
 	);
 };
