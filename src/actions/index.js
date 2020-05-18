@@ -8,7 +8,15 @@ import {
 	FETCH_BALANCE,
 	FETCH_BANKS,
 	ADD_BANK,
+	FETCH_TRANSACTIONS,
 } from './types';
+
+/**************************************************
+ * Action Creators for User Authentication/Creation
+ * createUser
+ * signIn
+ * signOut
+ *************************************************/
 
 export const createUser = (formValues) => async (dispatch) => {
 	try {
@@ -69,10 +77,6 @@ export const fetchBalance = () => async (dispatch, getState) => {
  * Action Creators for Banking/Wallet
  * fetchBanks
  * addBank
- * selectBank
- * setAmount
- * withdraw
- * deposit
  ****************************************/
 
 export const fetchBanks = () => async (dispatch, getState) => {
@@ -134,5 +138,51 @@ export const addBank = (formValues) => async (dispatch, getState) => {
 			},
 		});
 		return 1;
+	}
+};
+
+const fetchTransactions = () => async (dispatch, getState) => {
+	try {
+		const response = flaskapi.get('/activity', {
+			headers: {
+				Authorization: getState().auth.access_token,
+			},
+		});
+		if (response.status === 200) {
+			dispatch({
+				type: FETCH_TRANSACTIONS,
+				payload: response.data.transactions,
+			});
+		} else {
+			console.log('Failed to retrieve transactions.');
+		}
+	} catch {
+		// TODO : Delete when done testing!!!
+		console.log(
+			'Server not online to retrieve transactions. Producing dummy data.'
+		);
+		dispatch({
+			type: FETCH_TRANSACTIONS,
+			payload: [
+				{
+					first_name: 'first1',
+					last_name: 'last1',
+					email: 'email1@email.com',
+					amount: '10.00',
+				},
+				{
+					first_name: 'first2',
+					last_name: 'last2',
+					email: 'email2@email.com',
+					amount: '20.00',
+				},
+				{
+					first_name: 'first3',
+					last_name: 'last3',
+					email: 'email3@email.com',
+					amount: '30.00',
+				},
+			],
+		});
 	}
 };
