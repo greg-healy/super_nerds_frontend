@@ -44,7 +44,8 @@ const WalletConfirm = (props) => {
 			<Grid item xs={12}>
 				<p>
 					Are you sure you want to {mode === 'deposit' ? 'deposit' : 'withdraw'}{' '}
-					${amount} {mode === 'deposit' ? 'to' : 'from'} {name} ({number})?
+					${amount.toFixed(2)} {mode === 'deposit' ? 'to' : 'from'} {name} (
+					{number})?
 				</p>
 			</Grid>
 			<Grid item xs={12}>

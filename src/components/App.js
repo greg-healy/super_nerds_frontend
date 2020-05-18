@@ -18,8 +18,9 @@ import Wallet from './Wallet';
 
 export default function App() {
 	const useStyles = makeStyles((theme) => ({
-		grow: {
+		main: {
 			flexGrow: '1',
+			width: '100vw',
 		},
 		gridrow: {
 			width: '100vw',
@@ -43,7 +44,7 @@ export default function App() {
 					<Grid item xs={12} className={classes.gridrow}>
 						<NavBar />
 					</Grid>
-					<Grid item xs={10} md={8} className={classes.grow}>
+					<Grid item xs={10} sm={8} className={classes.main}>
 						<Route path='/' exact component={Homepage} />
 						<Route path='/register' component={SignUp} />
 						<Route path='/login' component={SignIn} />
