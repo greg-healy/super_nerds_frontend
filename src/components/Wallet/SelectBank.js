@@ -32,7 +32,7 @@ const SelectBank = (props) => {
 			justify='center'
 			spacing={3}>
 			<Grid item xs={12}>
-				<Typography variant='h1'>Select a bank:</Typography>
+				<Typography variant='h4'>Select your bank</Typography>
 			</Grid>
 			<Grid item xs={12}>
 				<FormControl className={classes.formControl}>

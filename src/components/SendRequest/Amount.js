@@ -27,7 +27,7 @@ const SendAmount = (props) => {
 			justify='center'
 			spacing={3}>
 			<Grid item xs={12}>
-				<Typography variant='h1'>Enter an amount:</Typography>
+				<Typography variant='h4'>How much do you want to {mode}?</Typography>
 			</Grid>
 			<Grid item xs={12}>
 				<CurrencyTextField

@@ -41,7 +41,7 @@ const AddBank = (props) => {
 
 	return (
 		<>
-			<Typography variant='h1'>Add your bank</Typography>
+			<Typography variant='h4'>Add your bank</Typography>
 			<form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>

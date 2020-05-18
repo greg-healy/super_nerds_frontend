@@ -37,7 +37,7 @@ const Summary = (props) => {
 				<Paper className={classes.paper}>
 					<Balance></Balance>
 					<br />
-					Transactions
+					<h1>Transactions</h1>
 				</Paper>
 			</Grid>
 		</Grid>

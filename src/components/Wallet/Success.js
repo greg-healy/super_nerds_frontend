@@ -11,7 +11,7 @@ const Success = () => {
 
 	return (
 		<div>
-			<Typography variant='h1'>Success!</Typography>
+			<Typography variant='h3'>Success!</Typography>
 			<Typography variant='body1'>
 				You will now be returned to the summary page!
 			</Typography>

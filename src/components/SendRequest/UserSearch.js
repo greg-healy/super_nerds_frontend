@@ -58,8 +58,8 @@ const SendUserSearch = (props) => {
 			justify='center'
 			spacing={3}>
 			<Grid item xs={12}>
-				<Typography variant='h1' gutterBottom>
-					Send money
+				<Typography variant='h4' gutterBottom>
+					Find a friend
 				</Typography>
 			</Grid>
 			<Grid item xs={12}>

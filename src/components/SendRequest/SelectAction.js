@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-const SendRequestSelect = (props) => {
+const SelectAction = (props) => {
 	const { setModeSend, setModeRequest } = props;
 	return (
 		<Grid
@@ -14,7 +14,7 @@ const SendRequestSelect = (props) => {
 			justify='center'
 			spacing={4}>
 			<Grid item xs={12}>
-				<Typography variant='h1'>What do you want to do?</Typography>
+				<Typography variant='h4'>Send & Request</Typography>
 			</Grid>
 			<Grid item xs={12}>
 				<Button
@@ -38,4 +38,4 @@ const SendRequestSelect = (props) => {
 	);
 };
 
-export default SendRequestSelect;
+export default SelectAction;

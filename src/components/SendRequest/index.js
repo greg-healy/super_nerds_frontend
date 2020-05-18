@@ -7,7 +7,7 @@ import SendUserSearch from './UserSearch';
 import SendAmount from './Amount';
 import SendConfirm from './Confirm';
 import SendSuccess from './Success';
-import SendRequestSelect from './Select';
+import SelectAction from './SelectAction';
 
 const useStyles = makeStyles((theme) => ({
 	form: {
@@ -59,7 +59,7 @@ const SendForm = (props) => {
 	switch (step) {
 		case 0:
 			return (
-				<SendRequestSelect
+				<SelectAction
 					setModeSend={setModeSend}
 					setModeRequest={setModeRequest}
 				/>

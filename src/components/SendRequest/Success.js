@@ -1,12 +1,22 @@
 import React from 'react';
 
-const SendSuccess = () => {
+import Typography from '@material-ui/core/Typography';
+
+import history from '../../history';
+
+const Success = () => {
+	setTimeout(() => {
+		history.push('/summary');
+	}, 5000);
+
 	return (
 		<div>
-			<h1>Success page!</h1>
-			<h2>Return to dashboard button</h2>
+			<Typography variant='h3'>Success!</Typography>
+			<Typography variant='body1'>
+				You will now be returned to the summary page!
+			</Typography>
 		</div>
 	);
 };
 
-export default SendSuccess;
+export default Success;

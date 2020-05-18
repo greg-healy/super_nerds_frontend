@@ -39,14 +39,14 @@ const Confirm = (props) => {
 	return (
 		<Grid container>
 			<Grid item xs={12}>
-				<h1>Confirm</h1>
+				<Typography variant='h4'>Confirm</Typography>
 			</Grid>
 			<Grid item xs={12}>
-				<p>
+				<Typography variant='body1'>
 					Are you sure you want to {mode === 'deposit' ? 'deposit' : 'withdraw'}{' '}
 					${amount.toFixed(2)} {mode === 'deposit' ? 'to' : 'from'} {name} (
 					{number})?
-				</p>
+				</Typography>
 			</Grid>
 			<Grid item xs={12}>
 				<Grid container spacing={4}>

@@ -14,7 +14,7 @@ const SelectAction = (props) => {
 			justify='center'
 			spacing={4}>
 			<Grid item xs={12}>
-				<Typography variant='h1'>What do you want to do?</Typography>
+				<Typography variant='h4'>Your wallet</Typography>
 			</Grid>
 			<Grid item xs={12}>
 				<Button
