@@ -12,7 +12,7 @@ const Confirm = (props) => {
 
 	const validate = async () => {
 		try {
-			const response = await flaskapi.post(`/${mode}`, {
+			const response = await flaskapi.post(`/bank/${mode}`, {
 				headers: {
 					Authorization: access_token,
 				},
