@@ -64,6 +64,7 @@ export const fetchBalance = () => async (dispatch, getState) => {
 			},
 		});
 		if (response.status === 200) {
+			if (response.data.balance === null) response.data.balance = 0;
 			dispatch({ type: FETCH_BALANCE, payload: response.data });
 		}
 	} catch {
@@ -88,9 +89,10 @@ export const fetchBanks = () => async (dispatch, getState) => {
 		});
 		if (response.status === 200) {
 			dispatch({ type: FETCH_BANKS, payload: response.data });
-			return response.data;
+		} else if (response.status === 204) {
+			console.log('No banks created for this users yet.');
 		} else {
-			console.log('Did not receive a good response from /bank.');
+			console.log('Some other error occurred in fetchBanks action.');
 		}
 	} catch {
 		//console.log('Could not communicate with the server.');
@@ -113,7 +115,7 @@ export const addBank = (formValues) => async (dispatch, getState) => {
 			},
 		});
 		// Add the bank to our store->user->bank
-		if (response.status === 200) {
+		if (response.status === 201) {
 			dispatch({
 				type: ADD_BANK,
 				payload: {

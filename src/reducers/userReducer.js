@@ -24,9 +24,7 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, email: action.email };
 
 		case FETCH_BANKS: {
-			if (action.payload.bank_name === '' || action.payload.bank_no === '') {
-				return { ...state };
-			} else {
+			if (action.payload.bank_name || action.payload.bank_no) {
 				return {
 					...state,
 					banks: [
@@ -34,6 +32,8 @@ export default (state = INITIAL_STATE, action) => {
 						{ name: action.payload.bank_name, number: action.payload.bank_no },
 					],
 				};
+			} else {
+				return { ...state };
 			}
 		}
 
