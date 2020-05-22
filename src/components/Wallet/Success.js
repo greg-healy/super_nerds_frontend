@@ -5,12 +5,15 @@ import Typography from '@material-ui/core/Typography';
 import history from '../../history';
 
 const Success = (props) => {
-	const { setStep } = props;
+	const { setStep, fetchBalance } = props;
 
 	setTimeout(() => {
-		history.push('/summary');
-		setStep(0);
-	}, 5000);
+		(async () => {
+			await fetchBalance();
+			history.push('/summary');
+			setStep(0);
+		})();
+	}, 3000);
 
 	return (
 		<div>

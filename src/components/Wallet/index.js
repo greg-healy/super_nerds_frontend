@@ -9,7 +9,7 @@ import SelectBank from './SelectBank';
 import Amount from './Amount';
 import Confirm from './Confirm';
 import Success from './Success';
-import { fetchBanks, addBank } from '../../actions';
+import { fetchBalance, fetchBanks, addBank } from '../../actions';
 
 const useStyles = makeStyles((theme) => ({
 	form: {
@@ -31,7 +31,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Wallet = (props) => {
-	const { access_token, fetchBanks, addBank, banks, balance } = props;
+	const {
+		access_token,
+		fetchBalance,
+		fetchBanks,
+		addBank,
+		banks,
+		balance,
+	} = props;
 	const [step, setStep] = useState(0);
 	const [mode, setMode] = useState('withdraw'); // Modes can either be withdraw or deposit
 	const [bank, setBank] = useState({});
@@ -59,10 +66,13 @@ const Wallet = (props) => {
 
 	useEffect(() => {
 		// 1. If the banks havent been fetched and put in store->user->banks, then do so
-		if (!fetched) {
-			fetchBanks();
-			setFetched(true);
-		}
+		(async () => {
+			if (!fetched) {
+				await fetchBanks();
+				setFetched(true);
+			}
+		})();
+
 		// 2. If there are banks, and one hasn't been selected, choose the last one in store->user->banks
 		if (fetched && banks.length === 0) setStep(-1);
 	}, [fetched, fetchBanks, banks]);
@@ -128,7 +138,13 @@ const Wallet = (props) => {
 				);
 
 			case 4:
-				return <Success setStep={setStep} walletState={walletState} />;
+				return (
+					<Success
+						fetchBalance={fetchBalance}
+						setStep={setStep}
+						walletState={walletState}
+					/>
+				);
 
 			default:
 		}
@@ -145,4 +161,6 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { fetchBanks, addBank })(Wallet);
+export default connect(mapStateToProps, { fetchBalance, fetchBanks, addBank })(
+	Wallet
+);

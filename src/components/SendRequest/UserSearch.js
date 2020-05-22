@@ -16,6 +16,7 @@ const SendUserSearch = (props) => {
 	const [options, setOptions] = useState([]);
 	const [users, setUsers] = useState([]);
 	const loading = open && options.length === 0;
+	let isValid = false;
 
 	useEffect(() => {
 		let active = true;
@@ -28,13 +29,9 @@ const SendUserSearch = (props) => {
 			const response = await flaskapi.get('/users', {
 				headers: { Authorization: access_token },
 			});
-			console.log(response.data);
-			const users = response.data.users;
-			setUsers(users);
 
-			if (active) {
-				setOptions(Object.keys(users).map((key) => users[key].item[0]));
-			}
+			setUsers(response.data);
+			if (active) setOptions(response.data);
 		})();
 
 		return () => {
@@ -48,7 +45,9 @@ const SendUserSearch = (props) => {
 		}
 	}, [open]);
 
-	const isValid = users.filter((user) => user.email === recip);
+	if (users) {
+		isValid = users.filter((user) => user.email === recip);
+	}
 
 	return (
 		<Grid
@@ -74,7 +73,9 @@ const SendUserSearch = (props) => {
 						setOpen(false);
 					}}
 					getOptionSelected={(option, value) => option.name === value.name}
-					getOptionLabel={(option) => option.name}
+					getOptionLabel={(option) =>
+						`${option.email} (${option.first_name} ${option.last_name})`
+					}
 					options={options}
 					loading={loading}
 					noOptionsText='No matches'

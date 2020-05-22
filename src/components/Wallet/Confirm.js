@@ -7,22 +7,24 @@ import flaskapi from '../../api/flaskapi';
 const Confirm = (props) => {
 	const { access_token, nextStep, prevStep, walletState } = props;
 	const { amount, mode } = walletState;
-	const { name, number } = walletState.bank;
+	const { bank_name, bank_no } = walletState.bank;
 	const [errorMsg, setErrorMsg] = useState('');
 
 	const validate = async () => {
 		try {
-			const response = await flaskapi.post(`/bank/${mode}`, {
-				headers: {
-					Authorization: access_token,
-				},
-				data: {
+			const response = await flaskapi.post(
+				`/bank/${mode}`,
+				{
 					amount: amount,
-					bank_no: number,
-					bank_name: name,
+					bank_no: bank_no,
+					bank_name: bank_name,
 				},
-			});
-			console.log(response);
+				{
+					headers: {
+						Authorization: access_token,
+					},
+				}
+			);
 			if (response.status === 200) {
 				nextStep();
 			} else {
@@ -44,8 +46,8 @@ const Confirm = (props) => {
 			<Grid item xs={12}>
 				<Typography variant='body1'>
 					Are you sure you want to {mode === 'deposit' ? 'deposit' : 'withdraw'}{' '}
-					${amount.toFixed(2)} {mode === 'deposit' ? 'to' : 'from'} {name} (
-					{number})?
+					${amount.toFixed(2)} {mode === 'deposit' ? 'to' : 'from'} {bank_name}{' '}
+					({bank_no})?
 				</Typography>
 			</Grid>
 			<Grid item xs={12}>

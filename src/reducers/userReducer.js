@@ -24,13 +24,10 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state, email: action.email };
 
 		case FETCH_BANKS: {
-			if (action.payload.bank_name || action.payload.bank_no) {
+			if (action.payload.banks) {
 				return {
 					...state,
-					banks: [
-						...state.banks,
-						{ name: action.payload.bank_name, number: action.payload.bank_no },
-					],
+					banks: action.payload.banks,
 				};
 			} else {
 				return { ...state };

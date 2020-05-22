@@ -5,24 +5,25 @@ import Grid from '@material-ui/core/Grid';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
 const SelectBank = (props) => {
-	// Could use the below if we had multiple banks
-	//const {setBank} = props;
 	const { prevStep, nextStep, setBank, walletState, banks, classes } = props;
 	const { bank } = walletState;
 
 	const renderBankItems = () => {
-		return banks.map((bank) => {
+		return banks.map((bank, index) => {
 			return (
-				<MenuItem value={bank} key={bank.number}>
-					{bank.name} ({bank.number})
+				<MenuItem value={index} key={bank.bank_no}>
+					{bank.bank_name} ({bank.bank_no})
 				</MenuItem>
 			);
 		});
 	};
 
 	const handleChange = (event) => {
-		setBank(event.target.value);
+		setBank(banks[event.target.value]);
 	};
+
+	let currBankIndex = banks.indexOf(bank);
+	if (currBankIndex < 0) currBankIndex = 0;
 
 	return (
 		<Grid
@@ -40,7 +41,7 @@ const SelectBank = (props) => {
 					<Select
 						labelId='select-bank-label'
 						id='select-bank'
-						value={bank}
+						value={currBankIndex}
 						onChange={handleChange}>
 						{renderBankItems()}
 					</Select>
@@ -62,7 +63,10 @@ const SelectBank = (props) => {
 							fullWidth
 							variant='contained'
 							color='primary'
-							onClick={() => nextStep()}>
+							onClick={() => {
+								setBank(banks[currBankIndex]);
+								nextStep();
+							}}>
 							Next
 						</Button>
 					</Grid>
