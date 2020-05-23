@@ -1,9 +1,4 @@
-import {
-	CREATE_USER,
-	SIGN_IN,
-	SIGN_OUT,
-	FAILED_ATTEMPT,
-} from '../actions/types';
+import { CREATE_USER, SIGN_IN, FAILED_ATTEMPT } from '../actions/types';
 
 const INITIAL_STATE = {
 	failedAttempt: false,

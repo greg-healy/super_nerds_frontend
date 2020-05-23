@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { signOut } from '../actions';
 
 const SignOut = ({ signOut }) => {
-	signOut();
+	setTimeout(() => {
+		signOut();
+	}, 1);
+
 	return <div>Signing out...</div>;
 };
 
