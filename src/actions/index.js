@@ -21,7 +21,6 @@ import {
 export const createUser = (formValues) => async (dispatch) => {
 	try {
 		const response = await flaskapi.post('/register', formValues);
-		console.log(response);
 		if (response.status === 201) {
 			dispatch({ type: CREATE_USER, payload: response.data });
 			history.push('/login');

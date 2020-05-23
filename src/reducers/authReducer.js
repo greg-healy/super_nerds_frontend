@@ -30,15 +30,6 @@ export default (state = INITIAL_STATE, action) => {
 				access_token: action.payload.access_token,
 			};
 
-		case SIGN_OUT:
-			return {
-				...state,
-				failedAttempt: false,
-				isSignedIn: false,
-				access_token: '',
-				errorMessage: '',
-			};
-
 		case FAILED_ATTEMPT:
 			return {
 				...state,
