@@ -90,6 +90,7 @@ const Wallet = (props) => {
 						classes={classes}
 						nextStep={nextStep}
 						addBank={addBank}
+						fetchBanks={fetchBanks}
 						walletState={walletState}
 					/>
 				);

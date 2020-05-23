@@ -127,6 +127,7 @@ export const addBank = (formValues) => async (dispatch, getState) => {
 			console.log(
 				'The server received our request to add a bank, but could not process it.'
 			);
+			return 0;
 		}
 	} catch {
 		console.log('Could not connect to the server to add the bank.');

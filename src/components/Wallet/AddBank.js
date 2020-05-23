@@ -33,10 +33,17 @@ const AddBank = (props) => {
 		classes,
 		nextStep,
 		addBank,
+		fetchBanks,
 	} = props;
 
 	const onSubmit = (formValues) => {
-		if (addBank(formValues)) nextStep();
+		(async () => {
+			const response = await addBank(formValues);
+			if (response) {
+				await fetchBanks();
+				nextStep();
+			}
+		})();
 	};
 
 	return (
