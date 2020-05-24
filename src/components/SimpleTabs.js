@@ -37,6 +37,7 @@ export default function SimpleTabs(props) {
 			<AppBar position='static'>
 				<Tabs
 					value={value}
+					variant='fullWidth'
 					onChange={handleChange}
 					aria-label='simple tabs example'>
 					<Tab label={tab1Label} {...a11yProps(0)} />
