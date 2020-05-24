@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 const SendConfirm = ({ prevStep, nextStep, formValues }) => {
-	const { recip, amount } = formValues;
+	const { recip, amount, mode } = formValues;
 
 	return (
 		<Grid
@@ -18,7 +18,7 @@ const SendConfirm = ({ prevStep, nextStep, formValues }) => {
 			</Grid>
 			<Grid item xs={12}>
 				<Typography variant='body1'>
-					Are you sure you want to send ${amount.toFixed(2)} to {recip}?
+					Are you sure you want to {mode} ${amount.toFixed(2)} to {recip}?
 				</Typography>
 			</Grid>
 			<Grid item xs={12}>

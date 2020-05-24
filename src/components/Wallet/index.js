@@ -9,6 +9,7 @@ import SelectBank from './SelectBank';
 import Amount from './Amount';
 import Confirm from './Confirm';
 import Success from './Success';
+import SimpleTabs from '../SimpleTabs';
 import { fetchBalance, fetchBanks, addBank } from '../../actions';
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +40,7 @@ const Wallet = (props) => {
 		banks,
 		balance,
 	} = props;
-	const [step, setStep] = useState(0);
+	const [step, setStep] = useState(1);
 	const [mode, setMode] = useState('withdraw'); // Modes can either be withdraw or deposit
 	const [bank, setBank] = useState({});
 	const [fetched, setFetched] = useState(false);
@@ -56,12 +57,12 @@ const Wallet = (props) => {
 
 	const setModeDeposit = () => {
 		setMode('deposit');
-		nextStep();
+		//nextStep();
 	};
 
 	const setModeWithdraw = () => {
 		setMode('withdraw');
-		nextStep();
+		//nextStep();
 	};
 
 	useEffect(() => {
@@ -74,7 +75,7 @@ const Wallet = (props) => {
 		})();
 
 		// 2. If there are banks, and one hasn't been selected, choose the last one in store->user->banks
-		if (fetched && banks.length === 0) setStep(-1);
+		if (fetched && banks.length === 0) setStep(0);
 	}, [fetched, fetchBanks, banks]);
 
 	// At step 0, let them decide if the want to deposit/withdraw
@@ -84,7 +85,7 @@ const Wallet = (props) => {
 
 	const renderStep = () => {
 		switch (step) {
-			case -1:
+			case 0:
 				return (
 					<AddBank
 						classes={classes}
@@ -95,14 +96,14 @@ const Wallet = (props) => {
 					/>
 				);
 
-			case 0:
+			/*case 0:
 				return (
 					<SelectAction
 						setModeDeposit={setModeDeposit}
 						setModeWithdraw={setModeWithdraw}
 						prevStep={prevStep}
 					/>
-				);
+				);*/
 
 			case 1:
 				return (
@@ -151,7 +152,17 @@ const Wallet = (props) => {
 		}
 	};
 
-	return <>{renderStep()}</>;
+	return (
+		<>
+			<SimpleTabs
+				tab1Label='Withdraw'
+				tab2Label='Deposit'
+				tab1Handler={setModeWithdraw}
+				tab2Handler={setModeDeposit}
+			/>
+			{renderStep()}
+		</>
+	);
 };
 
 const mapStateToProps = (state) => {

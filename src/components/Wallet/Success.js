@@ -11,7 +11,7 @@ const Success = (props) => {
 		(async () => {
 			await fetchBalance();
 			history.push('/summary');
-			setStep(0);
+			setStep(1);
 		})();
 	}, 3000);
 

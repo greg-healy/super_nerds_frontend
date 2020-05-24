@@ -8,6 +8,7 @@ import SendAmount from './Amount';
 import SendConfirm from './Confirm';
 import SendSuccess from './Success';
 import SelectAction from './SelectAction';
+import SimpleTabs from '../SimpleTabs';
 
 const useStyles = makeStyles((theme) => ({
 	form: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SendForm = (props) => {
 	const { balance } = props;
-	const [step, setStep] = useState(0);
+	const [step, setStep] = useState(1);
 	const [mode, setMode] = useState('');
 	const [recip, setRecip] = useState('');
 	const [amount, setAmount] = useState(0);
@@ -46,65 +47,79 @@ const SendForm = (props) => {
 
 	const setModeSend = () => {
 		setMode('send');
-		nextStep();
+		//nextStep();
 	};
 
 	const setModeRequest = () => {
 		setMode('request');
-		nextStep();
+		//nextStep();
 	};
 
-	const formValues = { recip, amount };
+	const formValues = { recip, amount, mode };
 
-	switch (step) {
-		case 0:
-			return (
-				<SelectAction
-					setModeSend={setModeSend}
-					setModeRequest={setModeRequest}
-				/>
-			);
+	const switchFunc = () => {
+		switch (step) {
+			case 0:
+				return (
+					<SelectAction
+						setModeSend={setModeSend}
+						setModeRequest={setModeRequest}
+					/>
+				);
 
-		case 1:
-			return (
-				<SendUserSearch
-					prevStep={prevStep}
-					nextStep={nextStep}
-					recip={recip}
-					setRecip={setRecip}
-					formValues={formValues}
-					classes={classes}
-				/>
-			);
+			case 1:
+				return (
+					<SendUserSearch
+						prevStep={prevStep}
+						nextStep={nextStep}
+						recip={recip}
+						setRecip={setRecip}
+						formValues={formValues}
+						classes={classes}
+					/>
+				);
 
-		case 2:
-			return (
-				<SendAmount
-					nextStep={nextStep}
-					prevStep={prevStep}
-					amount={amount}
-					setAmount={setAmount}
-					formValues={formValues}
-					balance={balance}
-					mode={mode}
-					classes={classes}
-				/>
-			);
+			case 2:
+				return (
+					<SendAmount
+						nextStep={nextStep}
+						prevStep={prevStep}
+						amount={amount}
+						setAmount={setAmount}
+						formValues={formValues}
+						balance={balance}
+						mode={mode}
+						classes={classes}
+					/>
+				);
 
-		case 3:
-			return (
-				<SendConfirm
-					nextStep={nextStep}
-					prevStep={prevStep}
-					formValues={formValues}
-				/>
-			);
+			case 3:
+				return (
+					<SendConfirm
+						nextStep={nextStep}
+						prevStep={prevStep}
+						formValues={formValues}
+					/>
+				);
 
-		case 4:
-			return <SendSuccess setStep={setStep} formValues={formValues} />;
+			case 4:
+				return <SendSuccess setStep={setStep} formValues={formValues} />;
 
-		default:
-	}
+			default:
+		}
+	};
+
+	return (
+		<div>
+			<SimpleTabs
+				tab1Label={'Send'}
+				tab2Label={'Request'}
+				tab1Handler={setModeSend}
+				tab2Handler={setModeRequest}
+			/>
+			{switchFunc()}
+		</div>
+	);
 };
 
 const mapStateToProps = (state) => {

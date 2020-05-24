@@ -9,7 +9,7 @@ const Success = (props) => {
 
 	setTimeout(() => {
 		history.push('/summary');
-		setStep(0);
+		setStep(1);
 	}, 5000);
 
 	return (
