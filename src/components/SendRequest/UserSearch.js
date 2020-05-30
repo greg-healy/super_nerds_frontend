@@ -104,6 +104,7 @@ const SendUserSearch = (props) => {
 				<Grid container direction='row' spacing={3}>
 					<Grid item xs={12} sm={6}>
 						<Button
+							disabled
 							fullWidth
 							variant='contained'
 							color='primary'

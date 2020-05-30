@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
 import AddBank from './AddBank';
-import SelectAction from './SelectAction';
 import SelectBank from './SelectBank';
 import Amount from './Amount';
 import Confirm from './Confirm';
@@ -47,22 +46,13 @@ const Wallet = (props) => {
 	const [amount, setAmount] = useState(0);
 	const classes = useStyles();
 
-	const nextStep = () => {
-		setStep(step + 1);
-	};
-
-	const prevStep = () => {
-		setStep(step - 1);
-	};
-
-	const setModeDeposit = () => {
-		setMode('deposit');
-		//nextStep();
-	};
-
-	const setModeWithdraw = () => {
-		setMode('withdraw');
-		//nextStep();
+	const nextStep = () => setStep(step + 1);
+	const prevStep = () => setStep(step - 1);
+	const setModeDeposit = () => setMode('deposit');
+	const setModeWithdraw = () => setMode('withdraw');
+	const resetState = () => {
+		setStep(1);
+		setAmount(0);
 	};
 
 	useEffect(() => {
@@ -78,11 +68,9 @@ const Wallet = (props) => {
 		if (fetched && banks.length === 0) setStep(0);
 	}, [fetched, fetchBanks, banks]);
 
-	// At step 0, let them decide if the want to deposit/withdraw
-	// Depending on their decision, set the type (need to pass in from TabPanel)
-
 	const walletState = { bank: bank, amount: amount, mode: mode };
 
+	// Returns the appropriate sub-component based on the current step
 	const renderStep = () => {
 		switch (step) {
 			case 0:
@@ -95,15 +83,6 @@ const Wallet = (props) => {
 						walletState={walletState}
 					/>
 				);
-
-			/*case 0:
-				return (
-					<SelectAction
-						setModeDeposit={setModeDeposit}
-						setModeWithdraw={setModeWithdraw}
-						prevStep={prevStep}
-					/>
-				);*/
 
 			case 1:
 				return (
@@ -143,7 +122,7 @@ const Wallet = (props) => {
 				return (
 					<Success
 						fetchBalance={fetchBalance}
-						setStep={setStep}
+						resetState={resetState}
 						walletState={walletState}
 					/>
 				);
@@ -152,6 +131,7 @@ const Wallet = (props) => {
 		}
 	};
 
+	// Returns Wallet component with correct subcomponent nested
 	return (
 		<>
 			<SimpleTabs
