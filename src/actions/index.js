@@ -123,6 +123,8 @@ export const addBank = (formValues) => async (dispatch, getState) => {
 				},
 			});
 			return 1;
+		} else if (response.status === 409) {
+			return 0;
 		} else {
 			console.log(
 				'The server received our request to add a bank, but could not process it.'
@@ -131,15 +133,7 @@ export const addBank = (formValues) => async (dispatch, getState) => {
 		}
 	} catch {
 		console.log('Could not connect to the server to add the bank.');
-		// REMOVE : PURELY FOR TESTING.
-		dispatch({
-			type: ADD_BANK,
-			payload: {
-				name: formValues.name,
-				number: formValues.number,
-			},
-		});
-		return 1;
+		return 0;
 	}
 };
 
