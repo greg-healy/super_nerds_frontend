@@ -123,8 +123,6 @@ export const addBank = (formValues) => async (dispatch, getState) => {
 				},
 			});
 			return 1;
-		} else if (response.status === 409) {
-			return 0;
 		} else {
 			console.log(
 				'The server received our request to add a bank, but could not process it.'
