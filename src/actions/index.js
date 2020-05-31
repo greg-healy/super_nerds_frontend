@@ -144,9 +144,10 @@ export const fetchActivity = () => async (dispatch, getState) => {
 			},
 		});
 		if (response.status === 200) {
+			console.log('Successfully retrieved activity');
 			dispatch({
 				type: FETCH_ACTIVITY,
-				payload: response.data.transactions,
+				payload: response.data.activity,
 			});
 		} else {
 			console.log('Failed to retrieve transactions.');
