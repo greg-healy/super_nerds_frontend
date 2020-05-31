@@ -1,4 +1,4 @@
-import { FETCH_TRANSACTIONS } from '../actions/types';
+import { FETCH_ACTIVITY } from '../actions/types';
 
 const INITIAL_STATE = {
 	transactions: [],
@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		case FETCH_TRANSACTIONS:
+		case FETCH_ACTIVITY:
 			return { ...state, transactions: action.payload.transactions };
 
 		default:

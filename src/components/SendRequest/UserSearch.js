@@ -66,12 +66,8 @@ const SendUserSearch = (props) => {
 					id='userSearchBox'
 					style={{ width: '100%' }}
 					open={open}
-					onOpen={() => {
-						setOpen(true);
-					}}
-					onClose={() => {
-						setOpen(false);
-					}}
+					onOpen={() => setOpen(true)}
+					onClose={() => setOpen(false)}
 					getOptionSelected={(option, value) => option.name === value.name}
 					getOptionLabel={(option) =>
 						`${option.email} (${option.first_name} ${option.last_name})`
@@ -79,7 +75,9 @@ const SendUserSearch = (props) => {
 					options={options}
 					loading={loading}
 					noOptionsText='No matches'
-					onInputChange={(event, value, reason) => setRecip(value)}
+					onInputChange={(event, value, reason) =>
+						setRecip(value.split(' ')[0])
+					}
 					renderInput={(params) => (
 						<TextField
 							{...params}

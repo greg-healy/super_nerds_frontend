@@ -1,15 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Typography from '@material-ui/core/Typography';
 
 import history from '../../history';
+import { fetchBalance } from '../../actions';
 
 const Success = (props) => {
-	const { setStep } = props;
+	const { fetchBalance, resetState } = props;
 
 	setTimeout(() => {
+		fetchBalance();
 		history.push('/summary');
-		setStep(1);
+		resetState();
 	}, 5000);
 
 	return (
@@ -22,4 +25,4 @@ const Success = (props) => {
 	);
 };
 
-export default Success;
+export default connect(null, { fetchBalance })(Success);

@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import authReducer from './authReducer';
-import transactionReducer from './transactionReducer';
+import activityReducer from './activityReducer';
 import userReducer from './userReducer';
 import { SIGN_OUT } from '../actions/types';
 
 const appReducer = combineReducers({
 	auth: authReducer,
 	form: formReducer,
-	transactions: transactionReducer,
+	activity: activityReducer,
 	user: userReducer,
 });
 

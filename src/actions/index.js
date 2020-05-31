@@ -2,13 +2,14 @@ import flaskapi from '../api/flaskapi';
 import history from '../history';
 import {
 	CREATE_USER,
+	FAILED_ATTEMPT,
 	SIGN_IN,
 	SIGN_OUT,
-	FAILED_ATTEMPT,
 	FETCH_BALANCE,
-	FETCH_BANKS,
 	ADD_BANK,
-	FETCH_TRANSACTIONS,
+	FETCH_BANKS,
+	FETCH_ACTIVITY,
+	FETCH_REQUESTS,
 } from './types';
 
 /**************************************************
@@ -135,7 +136,7 @@ export const addBank = (formValues) => async (dispatch, getState) => {
 	}
 };
 
-const fetchTransactions = () => async (dispatch, getState) => {
+export const fetchActivity = () => async (dispatch, getState) => {
 	try {
 		const response = flaskapi.get('/activity', {
 			headers: {
@@ -144,7 +145,7 @@ const fetchTransactions = () => async (dispatch, getState) => {
 		});
 		if (response.status === 200) {
 			dispatch({
-				type: FETCH_TRANSACTIONS,
+				type: FETCH_ACTIVITY,
 				payload: response.data.transactions,
 			});
 		} else {
@@ -156,7 +157,7 @@ const fetchTransactions = () => async (dispatch, getState) => {
 			'Server not online to retrieve transactions. Producing dummy data.'
 		);
 		dispatch({
-			type: FETCH_TRANSACTIONS,
+			type: FETCH_ACTIVITY,
 			payload: [
 				{
 					first_name: 'first1',
@@ -178,5 +179,101 @@ const fetchTransactions = () => async (dispatch, getState) => {
 				},
 			],
 		});
+	}
+};
+
+/**************************************
+ * Action Creators for Sending/Requeting
+ * send
+ * request
+ * respond
+ * getRequests
+ *************************************/
+
+export const send = (formValues) => async (dispatch, getState) => {
+	try {
+		const response = await flaskapi({
+			method: 'post',
+			url: '/send',
+			headers: {
+				Authorization: getState().auth.access_token,
+			},
+			data: {
+				email: formValues.recip,
+				amount: formValues.amount,
+			},
+		});
+
+		if (response.status === 200) return 1;
+		else return 0;
+	} catch {
+		console.log('Failed to send money');
+		return 0;
+	}
+};
+
+export const getRequests = () => async (dispatch, getState) => {
+	try {
+		const response = await flaskapi.get('/request/all', {
+			headers: {
+				Authorization: getState().auth.access_token,
+			},
+		});
+		if (response.status === 200) {
+			dispatch({
+				type: FETCH_REQUESTS,
+				payload: {
+					sent_requests: response.data.sent_requests,
+					recv_requests: response.data.recv_requests,
+				},
+			});
+			return 1;
+		} else {
+			console.log('Failed to retrieve requests.');
+			return 0;
+		}
+	} catch {
+		console.log('Error retrieving requests');
+		return 0;
+	}
+};
+
+export const request = (formValues) => async (dispatch, getState) => {
+	try {
+		const response = await flaskapi({
+			method: 'post',
+			url: '/request/new',
+			headers: {
+				Authorization: getState().auth.access_token,
+			},
+			data: {
+				email: formValues.recip,
+				amount: formValues.amount,
+			},
+		});
+
+		return response.status === 200 ? 1 : 0;
+	} catch {
+		return 0;
+	}
+};
+
+export const respond = (formValues) => async (dispatch, getState) => {
+	try {
+		const response = await flaskapi({
+			method: 'post',
+			url: '/respond',
+			headers: {
+				Authorization: getState().auth.access_token,
+			},
+			data: {
+				req_id: formValues.req_id,
+				response: formValues.response,
+			},
+		});
+		return response.status === 200 ? 1 : 0;
+	} catch {
+		console.log('Error responding to request');
+		return 0;
 	}
 };

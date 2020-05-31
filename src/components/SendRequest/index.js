@@ -32,29 +32,20 @@ const useStyles = makeStyles((theme) => ({
 const SendForm = (props) => {
 	const { balance } = props;
 	const [step, setStep] = useState(1);
-	const [mode, setMode] = useState('');
+	const [mode, setMode] = useState('send');
 	const [recip, setRecip] = useState('');
 	const [amount, setAmount] = useState(0);
 	const classes = useStyles();
 
-	const nextStep = () => {
-		setStep(step + 1);
+	const nextStep = () => setStep(step + 1);
+	const prevStep = () => setStep(step - 1);
+	const setModeSend = () => setMode('send');
+	const setModeRequest = () => setMode('request');
+	const resetState = () => {
+		setStep(1);
+		setAmount(0);
+		setRecip('');
 	};
-
-	const prevStep = () => {
-		setStep(step - 1);
-	};
-
-	const setModeSend = () => {
-		setMode('send');
-		//nextStep();
-	};
-
-	const setModeRequest = () => {
-		setMode('request');
-		//nextStep();
-	};
-
 	const formValues = { recip, amount, mode };
 
 	const switchFunc = () => {
@@ -103,7 +94,7 @@ const SendForm = (props) => {
 				);
 
 			case 4:
-				return <SendSuccess setStep={setStep} formValues={formValues} />;
+				return <SendSuccess resetState={resetState} formValues={formValues} />;
 
 			default:
 		}

@@ -1,10 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
-const SendConfirm = ({ prevStep, nextStep, formValues }) => {
+import { send, request } from '../../actions';
+
+const SendConfirm = ({ send, request, prevStep, nextStep, formValues }) => {
 	const { recip, amount, mode } = formValues;
+	const onSubmit = () => {
+		let result = 0;
+		(async () => {
+			if (mode === 'send') result = await send(formValues);
+			else result = await request(formValues);
+			if (result) nextStep();
+		})();
+	};
 
 	return (
 		<Grid
@@ -37,8 +49,8 @@ const SendConfirm = ({ prevStep, nextStep, formValues }) => {
 							fullWidth
 							variant='contained'
 							color='primary'
-							onClick={() => nextStep()}>
-							Send
+							onClick={() => onSubmit()}>
+							{mode}
 						</Button>
 					</Grid>
 				</Grid>
@@ -47,4 +59,4 @@ const SendConfirm = ({ prevStep, nextStep, formValues }) => {
 	);
 };
 
-export default SendConfirm;
+export default connect(null, { send, request })(SendConfirm);
