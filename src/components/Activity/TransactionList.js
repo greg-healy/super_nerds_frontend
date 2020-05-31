@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import {
 	makeStyles,
 	Link,
@@ -10,7 +9,6 @@ import {
 	TableRow,
 	Typography,
 } from '@material-ui/core';
-import { fetchActivity } from '../../actions';
 
 const useStyles = makeStyles((theme) => ({
 	seeMore: {
@@ -18,13 +16,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const TransactionList = ({ fetchActivity, transactions, requests }) => {
-	const [fetched, setFetched] = useState(false);
-	if (!fetched) {
-		fetchActivity();
-		setFetched(true);
-	}
-
+const TransactionList = ({ transactions }) => {
+	console.log(transactions);
 	const classes = useStyles();
 	return (
 		<React.Fragment>
@@ -60,11 +53,4 @@ const TransactionList = ({ fetchActivity, transactions, requests }) => {
 	);
 };
 
-const mapStateToProps = (state) => {
-	return {
-		transactions: state.activity.transactions,
-		requests: state.activity.requests,
-	};
-};
-
-export default connect(mapStateToProps, { fetchActivity })(TransactionList);
+export default TransactionList;

@@ -138,16 +138,16 @@ export const addBank = (formValues) => async (dispatch, getState) => {
 
 export const fetchActivity = () => async (dispatch, getState) => {
 	try {
-		const response = flaskapi.get('/activity', {
+		const response = await flaskapi.get('/activity', {
 			headers: {
 				Authorization: getState().auth.access_token,
 			},
 		});
+		console.log(response.data);
 		if (response.status === 200) {
-			console.log('Successfully retrieved activity');
 			dispatch({
 				type: FETCH_ACTIVITY,
-				payload: response.data.activity,
+				payload: response.data,
 			});
 		} else {
 			console.log('Failed to retrieve transactions.');

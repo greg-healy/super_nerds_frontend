@@ -1,14 +1,30 @@
-import React from 'react';
+import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import Balance from './Balance';
 import TransactionList from './TransactionList';
+import { fetchActivity } from '../../actions';
 
-const Activity = () => {
+const Activity = ({ fetchActivity, transactions }) => {
+	const [fetched, setFetched] = useState(false);
+	if (!fetched) {
+		fetchActivity();
+		setFetched(true);
+	}
+
 	return (
 		<>
 			<Balance />
-			<TransactionList />
+			<TransactionList transactions={transactions} />
 		</>
 	);
 };
 
-export default Activity;
+const mapStateToProps = (state) => {
+	console.log(state.activity.transactions);
+	return {
+		transactions: state.activity.transactions,
+		requests: state.activity.requests,
+	};
+};
+
+export default connect(mapStateToProps, { fetchActivity })(Activity);
