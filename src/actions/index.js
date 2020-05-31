@@ -143,7 +143,6 @@ export const fetchActivity = () => async (dispatch, getState) => {
 				Authorization: getState().auth.access_token,
 			},
 		});
-		console.log(response.data);
 		if (response.status === 200) {
 			dispatch({
 				type: FETCH_ACTIVITY,

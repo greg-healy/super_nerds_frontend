@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TransactionList = ({ transactions }) => {
-	console.log(transactions);
 	const classes = useStyles();
 	return (
 		<React.Fragment>

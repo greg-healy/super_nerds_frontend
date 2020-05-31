@@ -20,7 +20,6 @@ const Activity = ({ fetchActivity, transactions }) => {
 };
 
 const mapStateToProps = (state) => {
-	console.log(state.activity.transactions);
 	return {
 		transactions: state.activity.transactions,
 		requests: state.activity.requests,
