@@ -150,6 +150,31 @@ export const fetchActivity = () => async (dispatch, getState) => {
 			});
 		} else {
 			console.log('Failed to retrieve transactions.');
+			dispatch({
+				type: FETCH_ACTIVITY,
+				payload: {
+					activity: [
+						{
+							first_name: 'first1',
+							last_name: 'last1',
+							email: 'email1@email.com',
+							amount: '10.00',
+						},
+						{
+							first_name: 'first2',
+							last_name: 'last2',
+							email: 'email2@email.com',
+							amount: '20.00',
+						},
+						{
+							first_name: 'first3',
+							last_name: 'last3',
+							email: 'email3@email.com',
+							amount: '30.00',
+						},
+					],
+				},
+			});
 		}
 	} catch {
 		// TODO : Delete when done testing!!!
@@ -158,26 +183,28 @@ export const fetchActivity = () => async (dispatch, getState) => {
 		);
 		dispatch({
 			type: FETCH_ACTIVITY,
-			payload: [
-				{
-					first_name: 'first1',
-					last_name: 'last1',
-					email: 'email1@email.com',
-					amount: '10.00',
-				},
-				{
-					first_name: 'first2',
-					last_name: 'last2',
-					email: 'email2@email.com',
-					amount: '20.00',
-				},
-				{
-					first_name: 'first3',
-					last_name: 'last3',
-					email: 'email3@email.com',
-					amount: '30.00',
-				},
-			],
+			payload: {
+				activity: [
+					{
+						first_name: 'first1',
+						last_name: 'last1',
+						email: 'email1@email.com',
+						amount: '10.00',
+					},
+					{
+						first_name: 'first2',
+						last_name: 'last2',
+						email: 'email2@email.com',
+						amount: '20.00',
+					},
+					{
+						first_name: 'first3',
+						last_name: 'last3',
+						email: 'email3@email.com',
+						amount: '30.00',
+					},
+				],
+			},
 		});
 	}
 };
@@ -230,10 +257,100 @@ export const getRequests = () => async (dispatch, getState) => {
 			return 1;
 		} else {
 			console.log('Failed to retrieve requests.');
+			dispatch({
+				type: FETCH_ACTIVITY,
+				payload: {
+					recv_requests: [
+						{
+							first_name: 'first3',
+							last_name: 'last3',
+							email: 'email3@email.com',
+							amount: '10.00',
+						},
+						{
+							first_name: 'first4',
+							last_name: 'last4',
+							email: 'email4@email.com',
+							amount: '20.00',
+						},
+						{
+							first_name: 'first5',
+							last_name: 'last5',
+							email: 'email5@email.com',
+							amount: '30.00',
+						},
+					],
+					sent_requests: [
+						{
+							first_name: 'first1',
+							last_name: 'last1',
+							email: 'email1@email.com',
+							amount: '10.00',
+						},
+						{
+							first_name: 'first2',
+							last_name: 'last2',
+							email: 'email2@email.com',
+							amount: '20.00',
+						},
+						{
+							first_name: 'first3',
+							last_name: 'last3',
+							email: 'email3@email.com',
+							amount: '30.00',
+						},
+					],
+				},
+			});
 			return 0;
 		}
 	} catch {
 		console.log('Error retrieving requests');
+		dispatch({
+			type: FETCH_ACTIVITY,
+			payload: {
+				recv_requests: [
+					{
+						first_name: 'first3',
+						last_name: 'last3',
+						email: 'email3@email.com',
+						amount: '10.00',
+					},
+					{
+						first_name: 'first4',
+						last_name: 'last4',
+						email: 'email4@email.com',
+						amount: '20.00',
+					},
+					{
+						first_name: 'first5',
+						last_name: 'last5',
+						email: 'email5@email.com',
+						amount: '30.00',
+					},
+				],
+				sent_requests: [
+					{
+						first_name: 'first1',
+						last_name: 'last1',
+						email: 'email1@email.com',
+						amount: '10.00',
+					},
+					{
+						first_name: 'first2',
+						last_name: 'last2',
+						email: 'email2@email.com',
+						amount: '20.00',
+					},
+					{
+						first_name: 'first3',
+						last_name: 'last3',
+						email: 'email3@email.com',
+						amount: '30.00',
+					},
+				],
+			},
+		});
 		return 0;
 	}
 };

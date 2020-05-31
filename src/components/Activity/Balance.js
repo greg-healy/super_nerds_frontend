@@ -11,12 +11,12 @@ const Balance = ({ email, balance, fetchBalance }) => {
 	});
 
 	return (
-		<Grid container direction='column'>
+		<Grid container direction='row' justify='flex-end' alignItems='center'>
 			<Grid item>
-				<Typography variant='h2' gutterBottom>
-					Balance
-				</Typography>
-				<Typography variant='body1'>${balance.toFixed(2)}</Typography>
+				<Typography variant='h4'>Balance</Typography>
+			</Grid>
+			<Grid item>
+				<Typography variant='h6'>${balance.toFixed(2)}</Typography>
 			</Grid>
 		</Grid>
 	);

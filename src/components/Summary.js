@@ -36,8 +36,6 @@ const Summary = (props) => {
 			<Grid item xs={12} sm={12}>
 				<Paper className={classes.paper}>
 					<Activity></Activity>
-					<br />
-					<h1>Transactions</h1>
 				</Paper>
 			</Grid>
 		</Grid>

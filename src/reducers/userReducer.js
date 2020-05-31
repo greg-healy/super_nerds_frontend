@@ -3,7 +3,6 @@ import {
 	SIGN_IN,
 	FETCH_BANKS,
 	ADD_BANK,
-	FETCH_REQUESTS,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -12,10 +11,6 @@ const INITIAL_STATE = {
 	email: '',
 	balance: -1.0,
 	banks: [],
-	requests: {
-		sent: [],
-		received: [],
-	},
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -46,15 +41,6 @@ export default (state = INITIAL_STATE, action) => {
 					...state.banks,
 					{ name: action.payload.name, number: action.payload.number },
 				],
-			};
-
-		case FETCH_REQUESTS:
-			return {
-				...state,
-				requests: {
-					sent: action.payload.sent_requests,
-					received: action.payload.recv_requests,
-				},
 			};
 
 		default:
