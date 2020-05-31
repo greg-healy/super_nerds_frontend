@@ -8,9 +8,9 @@ import {
 	Toolbar,
 	Typography,
 	Button,
-	Icon,
 } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 
 const useStyles = makeStyles((theme) => ({
 	root: {},
@@ -87,9 +87,14 @@ const ButtonAppBar = ({ isSignedIn }) => {
 							{isSignedIn ? renderNavButtons(navButtons) : ''}
 						</div>
 						<div>
-							<Link href='github.com'>
-								<GitHubIcon />
-							</Link>
+							<Button color='inherit'>
+								<NotificationsIcon />
+							</Button>
+							<a href='https://www.github.com' style={{ color: 'white' }}>
+								<Button color='inherit'>
+									<GitHubIcon />
+								</Button>
+							</a>
 							<Link to={isSignedIn ? '/logout' : '/login'}>
 								<Button
 									className={classes.authButton}
