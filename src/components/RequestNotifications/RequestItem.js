@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Typography, Button, Grid, makeStyles } from '@material-ui/core';
-import { respond } from '../../actions';
+import {
+	Typography,
+	Button,
+	Grid,
+	CircularProgress,
+	makeStyles,
+} from '@material-ui/core';
+import { respond, fetchRequests } from '../../actions';
 
 // TODO : Check if the amount on the request is greater than the balance of the user
 // If it is, disable the Send button
@@ -18,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const RequestItem = ({ balance, respond, req }) => {
+const RequestItem = ({ balance, respond, req, fetchRequests }) => {
 	const classes = useStyles();
 	const [sufficientFunds, setSufficientFunds] = useState(true);
 	const [responded, setResponded] = useState(false);
@@ -29,34 +35,53 @@ const RequestItem = ({ balance, respond, req }) => {
 		if (balance < amount) setSufficientFunds(false);
 	});
 
+	const onSubmit = (payload) => {
+		setResponded(true);
+		(async () => {
+			let result = await respond(payload);
+			if (result) fetchRequests();
+			else setResponded(false);
+		})();
+	};
+
+	const renderReqItem = () => {
+		return (
+			<>
+				<Typography variant='body1' className={classes.reqBody}>
+					{first_name} {last_name}
+				</Typography>
+				<Typography variant='body1' className={classes.reqBody}>
+					{email}
+				</Typography>
+				<Typography variant='body1' className={classes.reqBody}>
+					${amount.toFixed(2)}
+				</Typography>
+				<Button
+					className={classes.reqButton}
+					variant='contained'
+					color='secondary'
+					disableElevation
+					onClick={() => onSubmit({ req_id: req_id, response: false })}>
+					Deny
+				</Button>
+				<Button
+					className={classes.reqButton}
+					variant='contained'
+					color='primary'
+					disableElevation
+					disabled={!sufficientFunds}
+					onClick={() => onSubmit({ req_id: req.req_id, response: true })}>
+					Send
+				</Button>
+			</>
+		);
+	};
+
+	const renderLoading = () => <CircularProgress />;
+
 	return (
 		<Grid className={classes.reqItem} container direction='row'>
-			<Typography variant='body1' className={classes.reqBody}>
-				{first_name} {last_name}
-			</Typography>
-			<Typography variant='body1' className={classes.reqBody}>
-				{email}
-			</Typography>
-			<Typography variant='body1' className={classes.reqBody}>
-				${amount.toFixed(2)}
-			</Typography>
-			<Button
-				className={classes.reqButton}
-				variant='contained'
-				color='secondary'
-				disableElevation
-				onClick={() => respond({ req_id: req_id, response: false })}>
-				Deny
-			</Button>
-			<Button
-				className={classes.reqButton}
-				variant='contained'
-				color='primary'
-				disableElevation
-				disabled={!sufficientFunds}
-				onClick={() => respond({ req_id: req.req_id, response: true })}>
-				Send
-			</Button>
+			{responded ? renderLoading() : renderReqItem()}
 		</Grid>
 	);
 };
@@ -67,4 +92,6 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { respond })(RequestItem);
+export default connect(mapStateToProps, { respond, fetchRequests })(
+	RequestItem
+);
