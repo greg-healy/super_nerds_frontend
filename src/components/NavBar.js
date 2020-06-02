@@ -10,7 +10,7 @@ import {
 	Button,
 } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import RequestNotifications from './RequestNotifications';
 
 const useStyles = makeStyles((theme) => ({
 	root: {},
@@ -87,9 +87,7 @@ const ButtonAppBar = ({ isSignedIn }) => {
 							{isSignedIn ? renderNavButtons(navButtons) : ''}
 						</div>
 						<div>
-							<Button color='inherit'>
-								<NotificationsIcon />
-							</Button>
+							<RequestNotifications />
 							<a href='https://www.github.com' style={{ color: 'white' }}>
 								<Button color='inherit'>
 									<GitHubIcon />

@@ -1,22 +1,29 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import {
+	makeStyles,
+	Popover,
+	Typography,
+	Button,
+	Grid,
+} from '@material-ui/core';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import { fetchRequests } from '../../actions';
+import RequestItem from './RequestItem';
 
 const useStyles = makeStyles((theme) => ({
 	typography: {
-		padding: theme.spacing(2),
+		padding: theme.spacing(1),
 	},
 }));
 
-export const RequestBox = () => {
+const RequestNotifications = ({ fetchRequests, requests, isSignedIn }) => {
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
+		fetchRequests();
 	};
 
 	const handleClose = () => {
@@ -26,35 +33,55 @@ export const RequestBox = () => {
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popover' : undefined;
 
-	return (
-		<div>
-			<Button color='inherit'>
-				<NotificationsIcon />
-			</Button>
-			<Button
-				aria-describedby={id}
-				variant='contained'
-				color='primary'
-				onClick={handleClick}>
-				Open Popover
-			</Button>
-			<Popover
-				id={id}
-				open={open}
-				anchorEl={anchorEl}
-				onClose={handleClose}
-				anchorOrigin={{
-					vertical: 'bottom',
-					horizontal: 'center',
-				}}
-				transformOrigin={{
-					vertical: 'top',
-					horizontal: 'center',
-				}}>
-				<Typography className={classes.typography}>
-					The content of the Popover.
-				</Typography>
-			</Popover>
-		</div>
-	);
+	const renderRequestItems = () => {
+		if (requests.received.length === 0) return 'No pending requests';
+		return requests.received.map((req) => (
+			<Grid item key={req.req_id}>
+				<RequestItem req={req} />
+			</Grid>
+		));
+	};
+
+	const renderNotificationsButton = () => {
+		return (
+			<>
+				<Button color='inherit' aria-describedby={id} onClick={handleClick}>
+					<NotificationsIcon />
+				</Button>
+				<Popover
+					id={id}
+					open={open}
+					anchorEl={anchorEl}
+					onClose={handleClose}
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'right',
+					}}
+					transformOrigin={{
+						vertical: 'top',
+						horizontal: 'right',
+					}}>
+					<Typography className={classes.typography} variant='h5'>
+						Notifications
+					</Typography>
+					<Grid container direction='column' justify='space-between'>
+						{renderRequestItems()}
+					</Grid>
+				</Popover>
+			</>
+		);
+	};
+
+	return <>{isSignedIn ? renderNotificationsButton() : ''}</>;
 };
+
+const mapStateToProps = (state) => {
+	return {
+		requests: state.activity.requests,
+		isSignedIn: state.auth.isSignedIn,
+	};
+};
+
+export default connect(mapStateToProps, { fetchRequests })(
+	RequestNotifications
+);

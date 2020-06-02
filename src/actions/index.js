@@ -239,7 +239,7 @@ export const send = (formValues) => async (dispatch, getState) => {
 	}
 };
 
-export const getRequests = () => async (dispatch, getState) => {
+export const fetchRequests = () => async (dispatch, getState) => {
 	try {
 		const response = await flaskapi.get('/request/all', {
 			headers: {
@@ -258,7 +258,7 @@ export const getRequests = () => async (dispatch, getState) => {
 		} else {
 			console.log('Failed to retrieve requests.');
 			dispatch({
-				type: FETCH_ACTIVITY,
+				type: FETCH_REQUESTS,
 				payload: {
 					recv_requests: [
 						{
@@ -307,7 +307,7 @@ export const getRequests = () => async (dispatch, getState) => {
 	} catch {
 		console.log('Error retrieving requests');
 		dispatch({
-			type: FETCH_ACTIVITY,
+			type: FETCH_REQUESTS,
 			payload: {
 				recv_requests: [
 					{
