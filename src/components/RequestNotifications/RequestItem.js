@@ -39,17 +39,19 @@ const RequestItem = ({
 
 	useEffect(() => {
 		if (balance < amount) setSufficientFunds(false);
-	});
+	}, [balance, amount]);
 
 	const onSubmit = (payload) => {
 		setResponded(true);
-		(async () => {
-			let result = await respond(payload);
-			if (result) {
-				fetchRequests();
-				fetchBalance();
-			} else setResponded(false);
-		})();
+		setTimeout(() => {
+			(async () => {
+				let result = await respond(payload);
+				if (result) {
+					fetchRequests();
+					fetchBalance();
+				} else setResponded(false);
+			})();
+		}, 3000);
 	};
 
 	const renderReqItem = () => {
@@ -88,7 +90,11 @@ const RequestItem = ({
 	const renderLoading = () => <CircularProgress />;
 
 	return (
-		<Grid className={classes.reqItem} container direction='row'>
+		<Grid
+			className={classes.reqItem}
+			justify='center'
+			container
+			direction='row'>
 			{responded ? renderLoading() : renderReqItem()}
 		</Grid>
 	);
