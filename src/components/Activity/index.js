@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Balance from './Balance';
 import TransactionList from './TransactionList';
 import { fetchActivity } from '../../actions';

@@ -1,13 +1,18 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import SignUpForm from './SignUpForm';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import {
+	Avatar,
+	CircularProgress,
+	Container,
+	CssBaseline,
+	Typography,
+	makeStyles,
+} from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
+import SignUpForm from './SignUpForm';
 import { createUser } from '../actions';
+import history from '../history';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -28,8 +33,38 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = ({ createUser }) => {
 	const classes = useStyles();
+	const [submitted, setSubmitted] = useState(false);
+	const [success, setSuccess] = useState(false);
 	const onSubmit = (formValues) => {
-		createUser(formValues);
+		setSubmitted(true);
+		setTimeout(() => {
+			(async () => {
+				const response = await createUser(formValues);
+				if (response) setSuccess(true);
+				else setSubmitted(false);
+			})();
+		}, 3000);
+	};
+
+	const renderSignUpForm = () => {
+		return <SignUpForm onSubmit={onSubmit} classes={classes} />;
+	};
+	const renderLoading = () => <CircularProgress />;
+	const renderSuccess = () => {
+		setTimeout(() => history.push('/login'), 3000);
+		return (
+			<div>
+				<Typography variant='h3'>Success!</Typography>
+				<Typography variant='body1'>
+					You will now be sent to the login page!
+				</Typography>
+			</div>
+		);
+	};
+	const renderComponent = () => {
+		if (submitted && success) return renderSuccess();
+		else if (submitted && !success) return renderLoading();
+		else return renderSignUpForm();
 	};
 
 	return (
@@ -42,7 +77,7 @@ const SignUp = ({ createUser }) => {
 				<Typography component='h1' variant='h5'>
 					Sign up
 				</Typography>
-				<SignUpForm onSubmit={onSubmit} classes={classes} />
+				{renderComponent()}
 			</div>
 		</Container>
 	);

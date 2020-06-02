@@ -88,7 +88,9 @@ const ButtonAppBar = ({ isSignedIn }) => {
 						</div>
 						<div>
 							<RequestNotifications />
-							<a href='https://www.github.com' style={{ color: 'white' }}>
+							<a
+								href='https://github.com/gregoryphealy/super_nerds_frontend'
+								style={{ color: 'white' }}>
 								<Button color='inherit'>
 									<GitHubIcon />
 								</Button>

@@ -24,13 +24,15 @@ export const createUser = (formValues) => async (dispatch) => {
 		const response = await flaskapi.post('/register', formValues);
 		if (response.status === 201) {
 			dispatch({ type: CREATE_USER, payload: response.data });
-			history.push('/login');
+			return 1;
 		} else if (response.status === 409) {
 			// Throw an error about something
 			dispatch({ type: FAILED_ATTEMPT, payload: response.data });
+			return 0;
 		}
 	} catch {
 		console.log('Could not reach the server to create a user.');
+		return 0;
 	}
 };
 

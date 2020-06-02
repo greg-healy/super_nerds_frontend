@@ -7,7 +7,12 @@ import {
 	CircularProgress,
 	makeStyles,
 } from '@material-ui/core';
-import { respond, fetchRequests, fetchBalance } from '../../actions';
+import {
+	respond,
+	fetchRequests,
+	fetchBalance,
+	fetchActivity,
+} from '../../actions';
 
 // TODO : Check if the amount on the request is greater than the balance of the user
 // If it is, disable the Send button
@@ -30,6 +35,7 @@ const RequestItem = ({
 	req,
 	fetchRequests,
 	fetchBalance,
+	fetchActivity,
 }) => {
 	const classes = useStyles();
 	const [sufficientFunds, setSufficientFunds] = useState(true);
@@ -49,6 +55,7 @@ const RequestItem = ({
 				if (result) {
 					fetchRequests();
 					fetchBalance();
+					fetchActivity();
 				} else setResponded(false);
 			})();
 		}, 3000);
@@ -110,4 +117,5 @@ export default connect(mapStateToProps, {
 	respond,
 	fetchRequests,
 	fetchBalance,
+	fetchActivity,
 })(RequestItem);
