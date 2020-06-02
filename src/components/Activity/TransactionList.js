@@ -28,19 +28,27 @@ const TransactionList = ({ transactions }) => {
 					<TableRow>
 						<TableCell>Name</TableCell>
 						<TableCell>Email</TableCell>
+						<TableCell>Date</TableCell>
 						<TableCell align='right'>Amount</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{transactions.map((item, index) => (
-						<TableRow key={index}>
-							<TableCell>
-								{item.first_name} {item.last_name}
-							</TableCell>
-							<TableCell>{item.email}</TableCell>
-							<TableCell align='right'>{item.amount}</TableCell>
-						</TableRow>
-					))}
+					{transactions
+						.slice(0)
+						.reverse()
+						.map((item, index) => (
+							<TableRow key={index}>
+								<TableCell>
+									{item.first_name} {item.last_name}
+								</TableCell>
+								<TableCell>{item.email}</TableCell>
+								<TableCell>{item.date}</TableCell>
+								<TableCell align='right'>
+									{item.sender ? '-' : '+'} $
+									{Number.parseFloat(item.amount).toFixed(2)}
+								</TableCell>
+							</TableRow>
+						))}
 				</TableBody>
 			</Table>
 			<div className={classes.seeMore}>
