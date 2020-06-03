@@ -1,77 +1,104 @@
-## Instructions for CS361
+# Super Nerd Wallet
 
-Clone the github repo to your local machine. Run `npm install` to install all of the necessary modules listed in the `package.json` file. Then run `npm start` to begin the web application (it should open a tab in your browser). 
+## Features Overview
 
-
-
-
+Our client wanted a digital payment system similar to Paypal/Venmo. We’ve created a web app that lets you create an account to access a personalized dashboard in which you can link a hypothetical bank account, withdraw money from said bank account, and send those funds to other registered users on the platform. You can also deposit funds back into your bank account, view your historical transactions, and request / deny other users’ requests for money. 
 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Create Your Account and Log In
 
-## Available Scripts
+The registration page stores your email and password for future authentication. Once registered, a user can use the Log In page to log into their dashboard.
 
-In the project directory, you can run:
+### Withdraw and Deposit Money from Your Bank/
+
+From the dashboard the Bank widget allows you to link your hypothetical bank account and withdraw money. You can also deposit money back into the bank.
+
+### Send and Request Money from Your Friends
+
+The Send Money widget allows you to send funds instantly to other users. You can also request money from other users, but they have the choice to either approve or deny your request when they log into their dashboard. 
+
+### View Your Transaction History
+
+The Transactions widget allows you to see all historical transactions between other users.
+
+## Installation - Frontend 
+
+Navigate to your project directory on your local machine and run:
+
+### `git clone https://github.com/gregoryphealy/super_nerds_frontend.git`
+
+Clones all of the files located in this repository's master branch into your project directory.
+
+### `npm install`
+
+Runs the npm installer and installs all necessary packages listed in the `package.json` file into a `node_modules` folder.
 
 ### `npm start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Quality Attributes
 
-### `npm test`
+### Reliability
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+We want users’ money transfers to occur quickly and without error. 
 
-### `npm run build`
+### Integrity
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+We want the software to be intuitive for new users so that they can easily navigate to the features they want to use and make transactions. 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Usability
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+We want our software to catch and manage all errors appropriately, malicious or otherwise. 
 
-### `npm run eject`
+## Software Architecture and Design
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### High Level Architecture
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![High Level Architecture](https://github.com/gregoryphealy/super_nerds_frontend/blob/master/diagrams/high_level_architecture.png?raw=true)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Communication Diagram
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![Communication Diagram](https://github.com/gregoryphealy/super_nerds_frontend/blob/master/diagrams/client_server_communication.png?raw=true)
 
-## Learn More
+### React Component Diagram
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![React Component Diagram](https://github.com/gregoryphealy/super_nerds_frontend/blob/master/diagrams/react_component_diagram.png?raw=true)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Database Entity Relationship Diagram
 
-### Code Splitting
+![Database Entity Relationship Diagram](https://github.com/gregoryphealy/super_nerds_frontend/blob/master/diagrams/database_erd.png?raw=true)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## Design Patterns, Modules, and Components
 
-### Analyzing the Bundle Size
+Command - Individual clients will receive a unique token to represent them upon logging in. When a client wishes to make a request for additional information from the database, they will send this token to the API server, and this will be decoded to determine who the client is. This information will then be used to retrieve information for the client that (1) is relevant to their request and (2) they have permission to access
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Final State of the Software
 
-### Making a Progressive Web App
+###Overview of know bugs/issues 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- Activity tab isn’t implemented
+- The ‘See more transactions’ link isn’t implemented
+- If you refresh the page, you’re logged out
 
-### Advanced Configuration
+###What is left in the Product Backlog
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+- Finish the Activity Tab
+- Update the ‘See more transactions’ link so that it views additional transaction history
+- Simulate Banks more realistically so that we’re making requests to accounts with finite amounts of money. 
 
-### Deployment
+## General File Structure
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+### Frontend
 
-### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Most of the files for the React frontend are contained within the src directory. Within here the entry point of our application is the `index.js` file and we also have a `history.js` file for keeping track of the current path in the user’s address bar. We have two folders which are used to manage the state of variables in a user's particular session using the Redux Store. These are the `actions` folder and the “reducers” folder. The `api` folder contains a little bit of setup we used in other files for making requests to our backend. The largest folder of them all is the `components` folder, and in here we have the different components used to build the application. The `Activity`, `RequestNotifications`, `SendRequest`, and `Wallet` folder contain all of the subcomponents pertinent to using those aspects of the summary page. The remainder of the files in this directory pertain to the navbar, footer, registration, logging in, and the summary and home pages. 
+
+### Backend
+
+`wsgi.py`, `__init__.py`, `extensions.py`, `settings.py`, and `commands.py` set up the basic framework for the backend server. `models.py` is where the table models are created using the ORM software - SqlAlchemy. The `routes` directory contains files for handling routes to the backend. Most are labeled intuitively: `auth.py`, `bank.py`, `requests.py`, and `transactions.py` all deal with the authorization, banking, requesting, and transaction routes respectively. `debugging.py` is used for debugging only and `main.py` deals with the homepage and more general routes. 
+
+## How to contribute to the project
+
+All members will continue to further make modification of the projects. Since this project can be used as a portfolio,individual members can also make their own individual modifications as they see fit. 
