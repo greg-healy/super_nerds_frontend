@@ -1,0 +1,15 @@
+export const CREATE_USER = 'CREATE_USER';
+export const FAILED_ATTEMPT = 'FAILED_ATTEMPT';
+export const SIGN_IN = 'SIGN_IN';
+export const SIGN_OUT = 'SIGN_OUT';
+export const FETCH_BALANCE = 'FETCH_BALANCE';
+export const ADD_BANK = 'ADD_BANK';
+export const FETCH_BANKS = 'FETCH_BANKS';
+export const FETCH_USER = 'FETCH_USER';
+export const FETCH_USERS = 'FETCH_USERS';
+export const FETCH_ACTIVITY = 'FETCH_ACTIVITY';
+export const WITHDRAW = 'WITHDRAW';
+export const SEND = 'SEND';
+export const FETCH_REQUESTS = 'FETCH_REQUESTS';
+export const REQUEST = 'REQUEST';
+export const RESPOND = 'RESPOND';
