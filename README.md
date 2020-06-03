@@ -76,13 +76,13 @@ Command - Individual clients will receive a unique token to represent them upon 
 
 ## Final State of the Software
 
-###Overview of know bugs/issues 
+### Overview of know bugs/issues 
 
 - Activity tab isn’t implemented
 - The ‘See more transactions’ link isn’t implemented
 - If you refresh the page, you’re logged out
 
-###What is left in the Product Backlog
+### What is left in the Product Backlog
 
 - Finish the Activity Tab
 - Update the ‘See more transactions’ link so that it views additional transaction history
